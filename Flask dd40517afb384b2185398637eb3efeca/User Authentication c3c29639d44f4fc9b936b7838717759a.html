@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>User Authentication</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c3c29639-d44f-4fc9-b936-b7838717759a" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🔐</span></div><h1 class="page-title">User Authentication</h1></header><div class="page-body"><h1 id="e1944844-aeb8-4682-bdbe-f6d3f6fbebd8" class="">Bcrypt</h1><p id="c1d362ed-242f-447f-a8e5-aa0abe5b11aa" class="">We don’t want to expose our passwords to others. So, we hash our passwords and store it in the DB.</p><p id="6dd49433-69c3-478c-a2c6-97318873e274" class="">Bcrypt is one of the hashing algotithm.</p><p id="71369f01-f56f-46b1-880f-7394fa6d61bc" class="">Flask has extension for bcrypt</p><pre id="c6481811-68ea-4a2f-8997-182be99329fc" class="code"><code>pip install flask-bcrypt</code></pre><figure id="76a42e47-736d-4c3a-8847-d02be8b6bdfd" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled.png"><img style="width:1170px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled.png"/></a></figure><p id="a80c228f-6554-4a49-ad27-f955312f4801" class="">generate_password_hash() function will hash our passwords and return it as a byte. The function will generate different hashes for the same password every time we call the function</p><p id="70dc81a2-98ef-4373-b096-bbdc542a1410" class="">if we want it to return string</p><figure id="02557e02-0107-4838-a23c-408da260821e" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%201.png"><img style="width:781px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%201.png"/></a></figure><p id="9c8f46ca-f6b9-450f-9e16-383c380b969a" class="">Different hashes on each time</p><figure id="1938005b-ecb4-4160-9c19-0b93e8959bc2" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%202.png"><img style="width:803px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%202.png"/></a></figure><p id="bb347763-df00-46b9-9d9c-30ff9d51ab64" class="">The function generate_password_hash() function is not reversible as it produces different hashes, we can use another function check_password_hash() to verify the password </p><p id="1d960590-7620-47da-a1e8-3e7552f08fc1" class=""> <div class="indented"><figure id="140d692a-4b6c-4e2e-8135-d07eb953afff" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%203.png"><img style="width:945px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%203.png"/></a></figure><p id="76debdaa-3d54-45b4-8a17-e607405f095a" class="">
+</p></div></p><h1 id="857183fc-fe43-4127-887f-c1f29830ebb8" class="">In App Implementation</h1><h2 id="2847e191-5fce-4c01-8cd2-f4b0e7212fa5" class="">Instantiate</h2><p id="e8a2848b-20d2-404d-b7e5-aca9fc0451ae" class=""> In the package (init.py),</p><figure id="cba3f2dc-5f05-4b5e-871d-1618121b74cf" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%204.png"><img style="width:858px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%204.png"/></a></figure><h2 id="fefad8ff-e179-4c65-9289-896dc672ee1d" class=""> </h2><h2 id="69056e50-8a47-4b1e-a99b-a1a1a407ba8b" class="">View function modification</h2><p id="7ee22e5c-af76-48f1-879d-07ffade182bb" class="">In routes, we import our objetcs</p><figure id="3b15c3a4-6369-4d61-86e3-19485ed18432" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%205.png"><img style="width:672px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%205.png"/></a></figure><p id="2ddbed18-b85a-462e-a0a3-dc474dec6c72" class="">Adding user to our DB</p><figure id="bcd11525-5041-41c7-a334-cd9aa75e6668" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%206.png"><img style="width:1156px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%206.png"/></a></figure><ol type="1" id="2d10efdc-55c6-4c7e-8af2-61f102068f4d" class="numbered-list" start="1"><li><mark class="highlight-red">will hash the password</mark></li></ol><ol type="1" id="4a32b936-7216-4a60-ad76-6fe589f6bb8e" class="numbered-list" start="2"><li><mark class="highlight-blue">form.[field name].data will get the data filled in that field</mark></li></ol><ol type="1" id="b74eafe5-1c95-45e3-b697-f4a20da6a235" class="numbered-list" start="3"><li><mark class="highlight-teal">commit the transaction</mark></li></ol><ol type="1" id="7a1b25b7-127f-40c6-a268-86a1561ba486" class="numbered-list" start="4"><li><mark class="highlight-purple">Flash with success message for creation and return to the login page</mark></li></ol><p id="1045fd08-59fb-4870-851a-6666bae5bef8" class="">
+</p><h2 id="5b7cec6a-85c8-4fd0-a0e4-5075935b5804" class="">Custom Validators</h2><p id="8f08b1c6-cec6-40dd-98fa-55cb3fe7716c" class="">We have our username attribute as unique value.</p><figure id="7b0edee9-8fd7-4af3-8349-3fca36bce79c" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%207.png"><img style="width:968px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%207.png"/></a></figure><p id="e35a874a-9a94-49e1-b1e1-dac2eb1d08fc" class="">Our app never allows the new user to use the same username which is taken by some user already. When we try to have username it will throw an ugly error page. </p><figure id="8f04325d-e2ee-4eb1-8726-30a9335be045" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%208.png"><img style="width:1252px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%208.png"/></a></figure><p id="5b482ac3-d5ed-4c26-8bcc-ed618debc352" class="">In order to get rid of that we can add our own custom validators by adding this function to form class.</p><pre id="cfd165b7-3602-403e-b4e6-c5884d850fdf" class="code"><code>def validate_field(self,field):
+	if True:
+		raise ValidationError(&quot;[Message]&quot;)</code></pre><p id="3a633e28-3005-43e9-ad5a-c5f55dff23cb" class="">
+</p><figure id="c93438c8-c74d-48bf-bbb8-22fc1e4f5d66" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%209.png"><img style="width:1006px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%209.png"/></a></figure><figure id="dcce2846-8791-4581-84b9-fa8495aa7c8d" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2010.png"><img style="width:1063px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2010.png"/></a><figcaption>forms.py</figcaption></figure><figure id="73d67fe6-9f61-493a-8b90-a3d12f5f071f" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2011.png"><img style="width:890px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2011.png"/></a></figure><p id="64abb6f3-26fb-4b04-ae15-17fd69dd64e8" class="">
+</p><h1 id="99d4531e-2503-4458-8faf-7fbd94babd19" class="">Login System</h1><p id="720fb984-bdc8-4024-b56e-37bb1e4c5080" class="">Flask has an extension called flask-login for easy management of <mark class="highlight-pink">user session.</mark></p><p id="1b5f35f2-16ac-42d0-8653-61777afe9854" class=""> </p><pre id="7833edb6-a4fb-4adf-8f3d-40999b2281cb" class="code"><code>pip install flask-login</code></pre><h2 id="bac9470b-51e7-474d-8893-5c8d838cc4d9" class="">Initialize</h2><figure id="4538df5f-fc3a-4040-af15-063a6a5d04f4" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2012.png"><img style="width:806px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2012.png"/></a></figure><h2 id="4985b84c-8826-48b7-a09e-4509a0efff5a" class="">Function with decorator ‘User loader’</h2><p id="21563a58-3c6a-410a-b846-0081ad257863" class="">This function is for reloading the user from the user id stored in this session</p><figure id="71833713-82ba-4029-a9ed-69d0801dedd4" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2013.png"><img style="width:676px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2013.png"/></a></figure><p id="d87684fe-7023-497a-9ff8-1cb5a9bbed5d" class="">We have to use the naming convention as above decorator.<div class="indented"><p id="61595f9e-031e-4f7b-b0e5-9a6936fbf5ea" class="">This extension will expect our User model to have some certain attributes and methods like <mark class="highlight-pink">is_aunthenticated, is_active, is anonymous </mark>and<mark class="highlight-pink"> get_id .  </mark>We can add all this by ourself but the extension has a simple class which contains all this can be inherited since these are common and the class is called <mark class="highlight-pink">UserMixin.</mark></p><figure id="aac94072-2ecf-46ab-8df7-071e0c4bfc4f" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2014.png"><img style="width:1086px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2014.png"/></a></figure><p id="6287a597-862b-496e-8ca1-9d9b305bce6c" class="">
+</p><h2 id="2fa02905-78dd-4b02-be24-c09b3abe17ba" class="">View function - login route</h2><figure id="70404879-2e05-44ab-b396-7b053860a72d" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2015.png"><img style="width:1067px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2015.png"/></a></figure><p id="9ff28fcf-cad7-4fff-9a94-c8e484be6645" class="">We use login_user() to log the user in. To do so, import login_user from flask_login</p><p id="b48bfd91-0af6-4449-b5f6-03abcad6e257" class="">In order to tell the user is currently logged in we can use <mark class="highlight-pink">current_user</mark> from login extension. </p><p id="9cca38ed-5eac-4938-b832-86372a809e4e" class="">So if the user is logged in and he is clicking login or register it will redirect to home page</p><figure id="367a1298-3060-4685-a903-f1e7bd0465ef" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2016.png"><img style="width:1025px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2016.png"/></a></figure><h3 id="2a73f1e4-bf2c-416c-9ef0-3070dcee31b4" class="">Logout </h3><pre id="10cda3b4-27c4-43d5-9c68-6f2833d1178d" class="code"><code>from flask_login import logout_user
+@app.route(&quot;/logout&quot;)
+def logout():
+    logout_user()
+    return redirect(url_for(&#x27;home&#x27;))</code></pre><p id="15bd2364-b40d-49b4-9891-8fb9eb1942e8" class="">We use logout_user function form flask_login to log out a user. This function doesn’t take any arguments since it already knows who is logged in.</p><p id="9e8a93b1-9c92-4c1f-a79b-bde9aaa63e74" class=""><strong>UI Modification</strong></p><figure id="e607d286-7d96-4a43-90c7-0bac8633aeff" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2017.png"><img style="width:910px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2017.png"/></a></figure><p id="dabba315-2faf-4cba-983f-40903f1bc18e" class="">When user logged in </p></div></p><figure id="7591d296-0f8e-4f47-ade7-e8c43f3556aa" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2018.png"><img style="width:1457px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2018.png"/></a></figure><p id="c299d5fa-55d5-4098-a732-e4afcd556dfc" class="">When user logged out</p><figure id="15122e2d-4faa-44dc-b400-59f7a3d56e39" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2019.png"><img style="width:1422px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2019.png"/></a></figure><h3 id="5a19a824-da81-4408-92ca-6fbdee50a947" class="">Account</h3><pre id="c44df515-84e4-402b-8464-1635c78312e0" class="code"><code>@app.route(&quot;/account&quot;)
+def account():
+    return render_template(&#x27;account.html&#x27;, title=&#x27;Account&#x27;)</code></pre><figure id="ed7c56c9-c1ed-4990-94f6-e055a5092424" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2020.png"><img style="width:912px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2020.png"/></a><figcaption>Layout.html</figcaption></figure><figure id="f0ca2e45-ea54-4426-ae87-c19150dde192" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2021.png"><img style="width:1398px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2021.png"/></a></figure><p id="6aaf7547-be1e-4676-bf91-f469f94619f4" class="">We want to put check in place that user should log in to access the account page to get rid of accessing account page without logged in. In that case we have an empty content</p><p id="7b4939a3-3ac5-4fc0-95c2-8d9d2ae9fca2" class=""> </p><figure id="2e9becea-dd69-4918-95a6-ed29aeda6368" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2022.png"><img style="width:1518px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2022.png"/></a></figure><p id="8c3dca81-5760-4564-9577-a23488beb6ae" class="">We can add a decorator to avoid this<div class="indented"><p id="d06f3067-b46e-453b-8845-2108f53b1f44" class="">Import login_required from flask_login</p><figure id="36d8ca9e-8bd2-4a70-aa7b-4b7af23d30cf" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2023.png"><img style="width:745px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2023.png"/></a></figure><p id="75d1c06c-bb3e-4064-a4fa-a5ad45fe2a96" class="">By this, Flask login Extension knows that we need to login to access this page.</p><p id="32e6ecd8-6f13-40ac-979a-739c217cfd31" class="">But we should tell our extension where we should look for the login route.</p><p id="3234b1b9-3a99-4b82-bbec-525a7f097f81" class="">To do so,</p><figure id="ecfc201c-3034-4481-adee-1c4a02b6ad59" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2024.png"><img style="width:510px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2024.png"/></a><figcaption>_ _ init _ _.py</figcaption></figure><figure id="1c06098a-4447-49d8-b2a6-9f035a7051c3" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2025.png"><img style="width:1433px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2025.png"/></a></figure><p id="cd4576ab-5254-41d4-8e00-19812353f4d0" class="">When we try to access account page it will redirect to login page.</p><p id="d88b56b3-93f6-4796-9b62-dcb4afb88277" class="">
+</p><p id="1de19fdd-0040-4a87-a00b-851337f93ec6" class="">We can add message category to our flashed message to make it prettier than this. By,</p><figure id="1fbaf56f-92d3-40c6-bdd2-3c78b3aa92f0" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2026.png"><img style="width:530px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2026.png"/></a></figure><figure id="a3fa0439-032c-4750-a015-e2b0cd9a04fa" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2027.png"><img style="width:1357px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2027.png"/></a></figure><p id="b3fb057d-824a-4894-95fe-587221058362" class="">Even if we logged in to access the page it redirects to home page. we want to access the account page once logged in.</p><p id="7a10678b-977d-4bf0-94ec-84bf0b1c0584" class="">To do so,<div class="indented"><p id="fae15582-6b1c-4a42-bca5-06f879c6da50" class="">As we can see in the URL, it has an argument next which indicates we tried to access the account page before log in. So, redirect the user to account page (next=%2Faccount) once logged in</p><pre id="2b40b0ed-d45b-43d2-86de-59c611177a4f" class="code"><code>from flask import request</code></pre><figure id="3631a6dd-3b21-4417-8d61-36c1f064956d" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2028.png"><img style="width:1037px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2028.png"/></a></figure><pre id="c5718c0f-c3d5-4664-8d73-2689cc71f690" class="code"><code>login_user(user, remember=form.remember.data)
+next_page = request.args.get(&#x27;next&#x27;)
+return redirect(next_page) if next_page else redirect(url_for(&#x27;home&#x27;))</code></pre><ol type="1" id="08dd3dc7-18d0-4e7d-99ee-f0dee23db606" class="numbered-list" start="1"><li>From the URL, we request <mark class="highlight-pink">next</mark> argument value.<ol type="a" id="7774884d-b0a2-4e19-a4bb-c83a74be8519" class="numbered-list" start="1"><li>args is a dictionary. It has key-value pairs.</li></ol><ol type="a" id="d9650d3b-6b6f-49c8-b9fe-6c737789077d" class="numbered-list" start="2"><li>It is safer to use <mark class="highlight-pink">get</mark> method since it returns <mark class="highlight-pink">none</mark> when the key doesn’t exist.</li></ol><ol type="a" id="7a7383ff-29ee-4a21-a344-adc1bba9c52c" class="numbered-list" start="3"><li><mark class="highlight-red">args[’next’]</mark> will throw an error if there is no <mark class="highlight-pink">next </mark>in the dict.</li></ol></li></ol><ol type="1" id="df083e2c-7b7c-40f8-b8c3-91c66ef8279b" class="numbered-list" start="2"><li>return has ternary condition if next_page is not none it will return to it otherwise it will redirect to home page.</li></ol><figure id="6dda5c83-1cfb-4c71-9c02-d793d3f99773" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2029.png"><img style="width:1397px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2029.png"/></a></figure><figure id="0d993896-9cec-432c-8f32-0b48f89dc626" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2030.png"><img style="width:1377px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2030.png"/></a></figure><figure id="6017c476-6793-41eb-9ce2-141a6175f2a4" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2031.png"><img style="width:1365px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2031.png"/></a></figure><figure id="df1d2740-1574-4339-8aab-a731e284fb9f" class="image"><a href="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2032.png"><img style="width:1401px" src="User%20Authentication%20c3c29639d44f4fc9b936b7838717759a/Untitled%2032.png"/></a></figure></div></p></div></p></div></article></body></html>

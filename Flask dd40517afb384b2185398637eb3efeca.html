@@ -1,0 +1,923 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Flask</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c3561051-e847-4b9e-8258-38643b849565" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💡</span></div><h1 class="page-title">Flask</h1></header><div class="page-body"><p id="be5e38f4-b97c-4f1f-ba51-6bd09b66e39d" class="">Notes based on Corey Schafer’s flask video.</p><p id="8af6cfe9-0ed0-417b-bf58-53339ffa6095" class="">Video source: <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH">https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH</a></p><h1 id="e3df5611-a22f-4fb2-8668-fb69d55c677e" class=""><details open=""><summary>Microframework</summary></details></h1><div class="indented"><p id="f487f56e-8c36-4cb8-8e7c-dd24eb2c03e1" class="">Micro” does not mean that your whole web application has to fit into a single Python file (although it certainly can), nor does it mean that Flask is lacking in functionality. </p><p id="8c90007e-a1d5-4673-b5e9-13383a096773" class="">The “micro” in microframework means Flask aims to keep the <mark class="highlight-orange">core simple</mark> but extensible.</p></div><h1 id="57eb83e2-af2a-46d3-9ba8-0e4f47fa3dc2" class=""><details open=""><summary>Minimal App</summary></details></h1><div class="indented"><pre id="b236628d-4523-4002-b695-d99d332d7c98" class="code"><code>from flask import Flask
+
+app = Flask(__name__)
+
+@app.route(&quot;/&quot;)
+def hello_world():
+    return &quot;&lt;p&gt;Hello, World!&lt;/p&gt;&quot;</code></pre><ol type="1" id="1b48e4a0-824f-4d57-8266-dad8316a7e0b" class="numbered-list" start="1"><li>First we imported the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Flask"><code>Flask</code></a> class. An instance of
+this class will be our WSGI application.</li></ol><ol type="1" id="ff7c58e4-2ace-4452-94cb-4b5faff99fde" class="numbered-list" start="2"><li>Next we create an instance of this class. The first argument is the
+name of the application’s module or package. <code>__name__</code> is a
+convenient shortcut for this that is appropriate for most cases.
+This is needed so that Flask knows where to look for resources such
+as templates and static files.</li></ol><ol type="1" id="fe7a832c-aaac-417d-8421-552d008ed590" class="numbered-list" start="3"><li>We then use the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Flask.route"><code>route()</code></a> decorator to tell Flask
+what URL should trigger our function.</li></ol><ol type="1" id="9d118646-0b10-40b7-8145-ffdef4b1df7a" class="numbered-list" start="4"><li>The function returns the message we want to display in the user’s
+browser. The default content type is HTML, so HTML in the string
+will be rendered by the browser.</li></ol></div><h1 id="36765b6f-48e8-4a95-97ed-263998003d68" class=""><details open=""><summary>Run</summary></details></h1><div class="indented"><p id="41dd750e-e7c7-4833-aa2b-65779089884f" class="">To run the application, use the <strong>flask </strong>command or <strong>python -m flask</strong>. Before you can do that you need to tell your terminal the application to work with by exporting the <code>FLASK_AP</code> environment variable:</p><p id="5afde100-3a35-41cc-86ea-47a77c951c60" class="">The <code>FLASK_APP</code> environment variable is the name of the module to import at <strong>flask run</strong>.</p><pre id="a002083c-acba-41ca-a5af-94e3ba1fa833" class="code"><code>$ export FLASK_APP= [app_name].py
+$ flask run</code></pre><pre id="3c2e0c23-f57b-4c17-93f8-446570a8c5e5" class="code"><code>&gt; set FLASK_APP=hello
+&gt; flask run</code></pre><p id="3cd2328c-0ddf-4401-854d-5f2fd1c2f910" class=""><strong>(Or) </strong> we can directly with python by adding last 2 lines of code in our program. Then in terminal </p><p id="f79e5d75-fcb1-4926-93d5-0b2838006cbb" class="">enter <mark class="highlight-pink">python [app_name].py</mark></p><pre id="f9016dcc-6370-4989-a24a-9c85f64a123e" class="code"><code>from flask import Flask
+
+app = Flask(__name__)
+
+@app.route(&quot;/&quot;)
+def hello_world():
+    return &quot;&lt;p&gt;Hello, World!&lt;/p&gt;&quot;
+if __name__ == &quot;__main__&quot;:
+		app.run()</code></pre><p id="a5ced164-3d73-4378-80c6-8e7541e9b530" class="">
+</p><p id="876b53db-0c12-498e-b56e-880f2d278812" class="">
+</p><p id="a16527b2-055f-4266-ba69-4bfd1cb79024" class="">
+</p></div><h1 id="0bec09c9-7dd3-4bcc-9de8-ef96b1373995" class=""><details open=""><summary>Debug</summary></details></h1><div class="indented"><p id="095c6876-e189-453e-8951-93c1527e087d" class="">By enabling debug mode, the server will automatically reload if code changes, and will show an interactive debugger in the browser if an error occurs during a request.</p><pre id="45752e86-78c3-4ec8-8a43-4facc3cc6ef5" class="code"><code>$ export FLASK_APP= [app_name].py
+$ export FLASK_DEBUG= 1
+$ flask run</code></pre><pre id="2f78abdf-3702-449d-9b13-c7a439754722" class="code"><code>&gt; set FLASK_APP=[app_name].py
+&gt; set FLASK_DEBUG=1
+&gt; flask run</code></pre><p id="ec7fa542-86dd-476a-95e0-c8d61193438c" class=""><strong>(Or)</strong></p><pre id="e308511b-3e4b-432c-9d3f-89d332137e51" class="code"><code>from flask import Flask
+
+app = Flask(__name__)
+
+@app.route(&quot;/&quot;)
+def hello_world():
+    return &quot;&lt;p&gt;Hello, World!&lt;/p&gt;&quot;
+if __name__ == &quot;__main__&quot;:
+		app.run(debug=True)</code></pre><p id="ebf7d7ff-7705-4b20-84fa-98e63fa1fba0" class="">
+</p></div><h1 id="b2e889dd-9af9-44e2-a00b-21cc98fb2c66" class=""><details open=""><summary><strong>HTML Escaping</strong></summary></details></h1><div class="indented"><p id="737ad6bb-5ba2-4122-9744-b7010d30b9e2" class="">When returning HTML (the default response type in Flask), any user-provided values rendered in the output must be escaped to protect from injection attacks. HTML templates rendered with Jinja, introduced later, will do this automatically.</p><p id="200d14eb-3335-4e90-bd15-aeac23dc5b73" class=""><code>escape()</code>, shown here, can be used manually. It is omitted in most examples for brevity, but you should always be aware of how you’re using untrusted data.</p><pre id="c659dc24-a606-4e05-aa7f-74aba87eb8be" class="code"><code>from markupsafe import escape
+
+@app.route(&quot;/&lt;name&gt;&quot;)
+def hello(name):
+    return f&quot;Hello, {escape(name)}!&quot;</code></pre><p id="53ef141c-629b-46bb-847d-d432322b68ce" class="">If a user managed to submit the name <code>&lt;script&gt;alert(&quot;bad&quot;)&lt;/script&gt;</code>,
+escaping causes it to be rendered as text, rather than running the script in the user’s browser.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="215091a5-ec85-45fc-a864-dde3822becf8"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">XSS is an abbreviation for &quot;Cross-site scripting&quot;.  Cross-site scripting attacks occur when you manage to sneak a script (usually JavaScript) onto someone else&#x27;s website, where it can run maliciously.<p id="eb4107d0-56ef-48fb-b9db-7d266d754008" class="">XSS is possible when you have user input into a web site.  For instance, if I was filling out a web form, and it asked me for my name, I could enter <code>My name is &lt;script src=&quot;http://bad.domain/evilscript.js&quot;&gt;&lt;/script&gt;</code>.  If I submit the form, and then on the next page it asks me to confirm my details and <em>re-outputs what I entered</em>, the nasty HTML tag that I entered would get rendered and the script would get downloaded and run by the browser.</p><p id="a1b415fc-dba5-4c0e-b5a8-3505d090b98e" class="">In order to prevent this, you need to <strong>escape</strong> user input.  Escaping means that you convert (or mark) key characters of the data to prevent it from being interpreted in a dangerous context</p></div></figure><p id="335c6e2a-59e4-42f3-af0f-6baf268025af" class=""><code>&lt;name&gt;</code> in the route captures a value from the URL and passes it to the <mark class="highlight-orange_background"><strong>view function</strong></mark>.</p></div><p id="3e53454b-629a-4cea-9c06-3d38895bfe79" class="">
+</p><h1 id="b53e2ed7-e2db-4361-a5b2-aa74d8043924" class="">Routing</h1><p id="0e49a586-0d3b-4436-8e2b-1b94a7d407bf" class="">We use the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Flask.route"><code>route()</code></a><code> </code>decorator to tell Flask what URL should trigger our function.</p><p id="a687eedb-b5cb-48be-9b66-c331c97b5f50" class="">The <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Flask.route"><code>route()</code></a><code> </code>decorator to bind a function to a URL.</p><pre id="b859654f-202a-484c-a67c-741ce937e724" class="code"><code>@app.route(&#x27;/hello&#x27;)
+def hello():
+    return &#x27;Hello, World&#x27;</code></pre><h2 id="4d8b8a48-4329-4e7f-a8da-4ffc00163c37" class=""><details open=""><summary>Multiple Routes</summary></details></h2><div class="indented"><pre id="f1d2cc63-3d4e-405a-b506-6c24d014c84c" class="code"><code>@app.route(&#x27;/hello&#x27;)
+@app.route(&#x27;/hello2&#x27;)
+def hello():
+    return &#x27;Hello, World&#x27;</code></pre></div><h2 id="4d19bf89-df5f-49f8-90a7-b2eb4d5e2403" class=""><details open=""><summary><strong>Variable Rules</strong></summary></details></h2><div class="indented"><p id="9d092ac3-263b-4298-8b2e-4bb57d1d802a" class="">You can add variable sections to a URL by marking sections with<code>&lt;variable_name&gt;. </code>Your function then receives the <code>&lt;variable_name&gt; </code>as a keyword argument. Optionally, you can use a converter to specify the type of the argument like <code>&lt;converter:variable_name&gt;</code></p><pre id="98265af3-9652-4f7a-b2a5-dbdcad68542c" class="code"><code>from markupsafe import escape
+
+@app.route(&#x27;/user/&lt;username&gt;&#x27;)
+def show_user_profile(username):
+    # show the user profile for that user
+    return f&#x27;User {escape(username)}&#x27;
+
+@app.route(&#x27;/post/&lt;int:post_id&gt;&#x27;)
+def show_post(post_id):
+    # show the post with the given id, the id is an integer
+    return f&#x27;Post {post_id}&#x27;
+
+@app.route(&#x27;/path/&lt;path:subpath&gt;&#x27;)
+def show_subpath(subpath):
+    # show the subpath after /path/
+    return f&#x27;Subpath {escape(subpath)}&#x27;
+</code></pre><h3 id="4ed4cf79-64f2-4d30-a046-76b40eaa5061" class="">Convertor type</h3><table id="501dcda8-af39-4ba8-a34b-1609d53c3bec" class="simple-table"><tbody><tr id="520660d0-acc7-4711-9f65-66aba91bc867"><td id="dQ|x" class="block-color-blue_background" style="width:334.3999938964844px">string</td><td id=";guU" class="" style="width:285.3999938964844px">(default) accepts any text without a slash</td></tr><tr id="000c8232-cb2f-4d70-812e-dfd02b8fa1fd"><td id="dQ|x" class="block-color-blue_background" style="width:334.3999938964844px">int</td><td id=";guU" class="" style="width:285.3999938964844px">accepts positive integers</td></tr><tr id="d00e69d6-f868-449f-a76b-4de5cc08f45c"><td id="dQ|x" class="block-color-blue_background" style="width:334.3999938964844px">float</td><td id=";guU" class="" style="width:285.3999938964844px">accepts positive floating point values</td></tr><tr id="70ff74ff-f40b-4ed0-8dac-ae69afc358bb"><td id="dQ|x" class="block-color-blue_background" style="width:334.3999938964844px">path</td><td id=";guU" class="" style="width:285.3999938964844px">like string but also accepts slashes</td></tr><tr id="83aec452-a5ff-4a85-85c7-02de14a74307"><td id="dQ|x" class="block-color-blue_background" style="width:334.3999938964844px">uuid</td><td id=";guU" class="" style="width:285.3999938964844px">accepts UUID strings</td></tr></tbody></table><p id="0fdd7386-a0e6-4d79-bace-455a887d8f4d" class="">
+</p></div><h2 id="5dd50034-3a61-40f7-9335-4b11ac70e9d1" class=""><details open=""><summary><strong>Unique URLs / Redirection Behavior</strong></summary></details></h2><h1 id="9e3b355b-2f0c-47bc-be05-c9c3de6573bd" class="">Static files</h1><p id="0d13d165-679e-48b4-8317-53bb75207e67" class="">Dynamic web applications also need static files. That’s usually where the CSS and JavaScript files are coming from.</p><p id="161cc36e-597c-4ef0-aae7-3aea22432ae0" class="">Just create a folder called <code>static</code> in your package or next to your module and it will be available at <code>/static</code> on the application.</p><p id="2d341a84-c451-492c-9bb5-e9a1a157d508" class="">To generate URLs for static files, use the special <code>&#x27;static&#x27;</code> endpoint name:</p><p id="ff9001b7-5253-4f9f-a428-96d56fdba1cb" class="">[ url_for ([’name of the view function]]) will find the exact location of those static files]</p><pre id="c920b3d5-e56b-4644-b398-837aea4f3902" class="code"><code>from flask import url_for 
+# in html
+url_for(&#x27;static&#x27;, filename=&#x27;style.css&#x27;) </code></pre><p id="6f2966b2-df18-4a8e-a8b5-8c77886f3863" class="">The file has to be stored on the filesystem as <code>static/style.css</code>.</p><h1 id="83288ddb-9685-4cf0-9389-ad0dbefb82e0" class="">Rendering Templates</h1><p id="b1df58d2-eaca-4330-92f0-14bfe7be20ec" class="">To render a template you can use the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.render_template"><code>render_template()</code></a><code> </code>method.  All you have to do is provide the name of the template and the variables you want to pass to the template engine as keyword arguments. Flask will look for templates in the <code>templates </code>folder
+Here’s a simple example of how to render a template</p><pre id="4e6146b7-72ed-4ee6-8c6c-41c4fc43e0e0" class="code"><code>from flask import render_template
+
+@app.route(&#x27;/hello/&#x27;)
+@app.route(&#x27;/hello/&lt;name&gt;&#x27;)
+def hello():
+    return render_template(&#x27;hello.html&#x27;)</code></pre><p id="256e7d54-edbb-4709-889c-54caf6469477" class="">For web-page needs to be dynamic. So, we can render dynamic data as below</p><pre id="38ba5ef7-b88b-4810-814f-159d1c9cd2a8" class="code"><code>@app.route(&#x27;/hello/&#x27;)
+@app.route(&#x27;/hello/&lt;name&gt;&#x27;)
+def hello(name=None):
+    return render_template(&#x27;hello.html&#x27;, name=name)</code></pre><figure id="dd40517a-fb38-4b21-8539-8637eb3efeca" class="image"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Untitled.png"><img style="width:1510px" src="Flask%20dd40517afb384b2185398637eb3efeca/Untitled.png"/></a></figure><p id="e5f393f8-0a68-4ea9-9dfa-57e28a1a2256" class="">Whatever the variable name that we pass as argument, we will have access to that <mark class="highlight-blue">variable</mark> in the template and will be equal to the <mark class="highlight-orange">data.</mark></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="f92132f5-ecd6-47c5-96df-3924fac8d8e2"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Flask uses template engine called “Jinja 2” for templates. A template contains <strong>variables </strong>and/or <strong>expressions</strong>, which get replaced with values when a template is <em>rendered</em>; and <strong>tags</strong>, which control the logic of the template.  The template syntax is heavily inspired by Django and Python.<p id="a52ccae9-a88e-45e0-baa6-e4457c377fd3" class="">You can use a dot (<code>.</code>) to access attributes of a variable in addition to the standard Python <code>__getitem__</code> “subscript” syntax (<code>[]</code>). The following lines do the same thing: </p><p id="3753e1d4-5be1-40a0-829a-3fd60b9a7be6" class=""><code>{{ foo.bar }} </code></p><p id="9bd5f387-0926-4256-9226-97e9c50a2d35" class=""><code>{{ foo[&#x27;bar&#x27;] }}</code></p></div></figure><h2 id="3e45712d-966b-4489-8c50-0f736286cfdf" class=""><details open=""><summary>Jinja delimiters</summary></details></h2><div class="indented"><p id="d6968b57-5be9-4ba1-83a4-c35bac2c2a30" class="">There are a few kinds of delimiters. The default Jinja delimiters are configured as follows:</p><ul id="8cbe5df2-2be0-4af1-b39c-3d4a680de0cc" class="bulleted-list"><li style="list-style-type:disc"><code>{% ... %}</code> for <a href="https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-control-structures">Statements</a></li></ul><ul id="4a1f4d26-edfc-42a2-b24a-43a013a01002" class="bulleted-list"><li style="list-style-type:disc"><code>{{ ... }}</code> for <a href="https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions">Expressions</a> to print to the template output</li></ul><ul id="6c51edd2-1015-40aa-b9fe-78fcadd79572" class="bulleted-list"><li style="list-style-type:disc"><code>{# ... #}</code> for <a href="https://jinja.palletsprojects.com/en/3.1.x/templates/#comments">Comments</a> not included in the template output</li></ul><p id="b3fdadbe-9926-4a21-ac2c-1ddc9ecd3ff5" class="">
+</p></div><h2 id="ac396878-89e1-4886-a1b0-81d5b8d9336a" class=""><details open=""><summary>Conditionals</summary></details></h2><div class="indented"><pre id="8591d6c7-eea1-4898-9b4e-b283ecbb0c8d" class="code"><code>{% if condition %}
+{% else %}
+{% endif %}</code></pre><figure id="d2c3759f-9a94-4603-838d-3a140f85e0ad" class="image"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Untitled%201.png"><img style="width:602px" src="Flask%20dd40517afb384b2185398637eb3efeca/Untitled%201.png"/></a><figcaption>Conditionals in title</figcaption></figure><figure id="ff2d41ae-1fb6-4b93-8920-263fad2f9b2e" class="image"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Untitled%202.png"><img style="width:1260px" src="Flask%20dd40517afb384b2185398637eb3efeca/Untitled%202.png"/></a></figure></div><h1 id="5593cf72-09dd-462f-9eed-58a33e665b89" class="">Template Inheritance</h1><p id="59a6ccd6-f163-47ad-a8d0-80d3a5cab28b" class="">To avoid repeating the same html code over different files and to make it maintainable we 
+use <strong>Inheritance.</strong></p><p id="bfce541f-3b65-4e01-8bbf-d885f9a1c823" class="">Basically template inheritance makes it possible to keep certain elements on each page (like header, navigation and footer).</p><p id="7b2b2571-2096-4c8f-a5a5-209b9650e7e3" class="">The most powerful part of Jinja is template inheritance. </p><p id="ecf421c1-409b-49d8-8281-0cff732f10fe" class="">Template inheritance allows you to build a base “<mark class="highlight-pink">skeleton</mark>” template that contains all the common elements of your site and defines <mark class="highlight-orange_background"><strong>blocks</strong></mark><strong> </strong>that child templates can override.</p><h2 id="08abbfdb-0749-411b-a10f-66217ed66d89" class=""><details open=""><summary>Base Template</summary></details></h2><div class="indented"><p id="635347df-0587-40b2-bffc-266a7c0dc3fc" class="">The Skeleton template which we call “base.html”  and look like this</p><pre id="b4762db1-36f2-4969-bf07-9cfc340a6a0b" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    {% block head %}
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;
+    &lt;title&gt;{% block title %}{% endblock %} - My Webpage&lt;/title&gt;
+    {% endblock %}
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;content&quot;&gt;{% block content %}{% endblock %}&lt;/div&gt;
+    &lt;div id=&quot;footer&quot;&gt;
+        {% block footer %}
+        &amp;copy; Copyright 2008 by &lt;a href=&quot;http://domain.invalid/&quot;&gt;you&lt;/a&gt;.
+        {% endblock %}
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="407da925-9be6-4f62-8208-aad66eec72d9" class="">All the <em><strong>block </strong></em>tag does is tell the template engine that a child template may override those placeholders in the template.</p><p id="b46d15d0-9a5e-412f-9533-e389f63f7bee" class=""><code>block </code>tags can be inside other blocks such as <code>if</code>, but they will always be executed regardless of if the <code>if</code> block is actually rendered.</p><p id="c69aae33-89b3-44af-965e-feb2250bd0c9" class="">
+</p></div><h2 id="011697b4-265a-4f96-a7da-25701e4a7df1" class=""><details open=""><summary>Child Template</summary></details></h2><div class="indented"><p id="5978651c-36e2-4e90-b04a-abdbeea005a7" class="">A child template might look like this:</p><pre id="a06014e4-8ca0-4417-b57d-4f648ffeb517" class="code"><code>{% extends &quot;base.html&quot; %}
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ super() }}
+    &lt;style type=&quot;text/css&quot;&gt;
+        .important { color: #336699; }
+    &lt;/style&gt;
+{% endblock %}
+{% block content %}
+    &lt;h1&gt;Index&lt;/h1&gt;
+    &lt;p class=&quot;important&quot;&gt;
+      Welcome to my awesome homepage.
+    &lt;/p&gt;
+{% endblock %}</code></pre><p id="b2433709-52a4-45ee-b2c7-7622585ca9de" class="">The <code>{% extends %}</code> tag is the key here. It tells the template engine that this template “extends” another template.</p><p id="426b3f03-7ee9-4daa-b184-175893236113" class="">The extends tag should be the first tag in the template.</p><p id="5273c4e5-fbc7-48d4-a7b5-87010333b262" class="">
+</p><p id="abc25a6e-44e2-4507-8bed-fe3227e09c39" class="">
+</p></div><h2 id="c3f0913c-d7f6-4d8b-ac0c-5036c1b60c33" class=""><details open=""><summary>Multiple blocks</summary></details></h2><div class="indented"><p id="add26e96-cac9-49f4-8f72-2397d1705b08" class="">You can’t define multiple <code>{% block %}</code> tags with the same name in the same template.<div class="indented"><p id="b7d176dc-0330-47fe-a281-6d0c82ece5ed" class="">If you want to print a block multiple times, you can, however, use the special <mark class="highlight-pink"><em>self</em></mark> variable and call the block with that name:</p><pre id="0b6f2797-5d5e-4787-a3a8-cc777f6efaba" class="code code-wrap"><code>&lt;title&gt;{% block title %}{% endblock %}&lt;/title&gt;
+&lt;h1&gt;{{ self.title() }}&lt;/h1&gt;
+{% block body %}{% endblock %}</code></pre></div></p></div><h2 id="729b1445-6121-46ab-b824-d7457334b825" class=""><details open=""><summary>Super blocks</summary></details></h2><div class="indented"><p id="03eaad08-bb3c-45bc-a5af-e2df7ba08c9f" class="">It’s possible to render the contents of the parent block by calling <code>super() </code>This gives back the results of the parent block:</p><pre id="b3c71da2-b7fd-4f8e-8414-266f3a7ffd58" class="code code-wrap"><code>{% block sidebar %}
+    &lt;h3&gt;Table Of Contents&lt;/h3&gt;
+    ...
+    {{ super() }}
+{% endblock %}</code></pre></div><h2 id="c91219a4-7313-4009-8b00-4157ca3762b9" class=""><details open=""><summary><strong>Nesting extends</strong></summary></details></h2><div class="indented"><p id="a5af1ad2-ac87-488d-8a1a-9f14b361c9f3" class="">In the case of multiple levels of <code>{% extends %}</code>,<code>super</code> references may be chained (as in <code>super.super()</code>) to skip levels in the inheritance tree.</p><p id="a59862f7-7a5d-4acb-9600-633177bc4aed" class="">For example:</p><pre id="67ad4385-c1bb-4c52-96ff-8208dc5d525f" class="code"><code># parent.tmpl
+body: {% block body %}Hi from parent.{% endblock %}
+
+# child.tmpl
+{% extends &quot;parent.tmpl&quot; %}
+{% block body %}Hi from child. {{ super() }}{% endblock %}
+
+# grandchild1.tmpl
+{% extends &quot;child.tmpl&quot; %}
+{% block body %}Hi from grandchild1.{% endblock %}
+
+# grandchild2.tmpl
+{% extends &quot;child.tmpl&quot; %}
+{% block body %}Hi from grandchild2. {{ super.super() }} {% endblock %}</code></pre><p id="f7410ea6-9ea8-44cc-ab7a-42585a3f9dfd" class="">Rendering <code>child.tmpl</code> will give <code>body: Hi from child. Hi from parent.</code></p><p id="25a5160e-8020-4d9e-b82d-2ae05cc1625f" class="">Rendering <code>grandchild1.tmpl</code> will give <code>body: Hi from grandchild1.</code></p><p id="2d642be4-86d8-48ef-b714-c07faa13aa53" class="">Rendering <code>grandchild2.tmpl</code> will give <mark class="highlight-blue"><code>body: Hi from grandchild2. Hi from parent.</code></mark></p></div><h2 id="08a1030b-a5c9-4e5d-bc35-56ec4d6a3b54" class=""><details open=""><summary><strong>Named Block End-Tags</strong></summary></details></h2><div class="indented"><p id="df24a518-0cd5-40f8-90e0-3d60de1295df" class="">We can also put the name of the block after the end tag for better readability.</p><pre id="70bb1b95-5c28-4fd1-90f5-134e6fbf0640" class="code"><code>{% block sidebar %}
+    {% block inner_sidebar %}
+        ...
+    {% endblock inner_sidebar %}
+{% endblock sidebar %}</code></pre><p id="ee4e4e11-b569-487d-a066-b056e9404d03" class="">
+</p></div><h2 id="4c80fc1f-f286-45b0-8022-18931eac4b0a" class=""><details open=""><summary><strong>Block Nesting and Scope</strong></summary></details></h2><div class="indented"><p id="9a97755a-e134-450f-a51a-749cccd564dc" class="">Per default blocks may not access variables from outer scopes:</p><pre id="1cd76d19-c7ac-4515-8132-3db9e7f47bb3" class="code"><code>{% for item in seq %}
+    &lt;li&gt;{% block loop_item %}{{ item }}{% endblock %}&lt;/li&gt;
+{% endfor %}</code></pre><p id="e79726cf-17d9-41e4-a0b2-c00a0c7960ed" class="">Output : &lt;li&gt; items because item is unavailable inside the block</p><p id="7eb6bf9b-1836-4f2b-adc7-a7ac5fb5920a" class="">Reason: If the block is replaced by a child template, a variable would appear that was not defined in the block or passed to the context.</p><p id="a1ea7817-fcfb-44db-b5c7-a05fa1104a7c" class="">We can explicitly specify that variables are available in a block by setting the block to <mark class="highlight-pink">“scoped” </mark>by adding the scoped modifier to a block declaration:</p><pre id="75d1b2be-0aff-43e0-8fa0-4778daf67be3" class="code code-wrap"><code>{% for item in seq %}
+    &lt;li&gt;{% block loop_item scoped %}{{ item }}{% endblock %}&lt;/li&gt;
+{% endfor %}</code></pre></div><h2 id="cc1f0c06-ee50-4491-bc45-a57970437992" class=""><details open=""><summary>Required Blocks</summary></details></h2><div class="indented"><p id="e2ba1c49-806c-41f7-b4d3-376eb0743a07" class="">Blocks can be marked as <code>required</code>. They must be overridden at some point, but not necessarily by the direct child template. Required blocks may only contain space and comments, and they cannot be rendered directly.</p><pre id="494ee860-d0f9-4196-8a09-a1298f7beb77" class="code"><code>page.txt
+
+{% block body required %}{% endblock %}
+--------------------------------------------
+
+issue.txt
+
+{% extends &quot;page.txt&quot; %}
+---------------------------------------------
+bug_report.txt
+
+{% extends &quot;issue.txt&quot; %}
+{% block body %}Provide steps to demonstrate the bug.{% endblock %}</code></pre><p id="576e320e-70c6-491b-b4a7-bd0a67df9f15" class="">Rendering <code>page.txt</code> or <code>issue.txt</code> will raise <code>TemplateRuntimeError</code> because they don’t override the <code>body</code> block. Rendering <code>bug_report.txt</code> will succeed because it does override the block.</p><hr id="40f00530-63c0-4fb9-9568-9e6513ebfbd9"/><p id="70ece024-edf4-4bd8-be66-7db5cdb1b807" class="">When combined with <code>scoped</code>, the <code>required</code> modifier must be placed <em>after</em> the scoped modifier. Here are some valid examples:</p><pre id="537d4baf-4200-45bc-bc2b-f696bddfedba" class="code"><code>{% block body scoped %}{% endblock %}
+{% block body required %}{% endblock %}
+{% block body scoped required %}{% endblock %}</code></pre></div><h2 id="5db15d10-eaa8-4c83-af13-f557e102848e" class=""><details open=""><summary>Template Objects</summary></details></h2><div class="indented"><p id="814ec9d2-ed7d-4050-a4f7-80d6f861ffca" class=""><code>extends</code>, <code>include</code>, and <code>import</code> can take a template object instead of the name of a template to load. This could be useful in some advanced situations, since you can use Python code to load a template first and pass it in to <code>render</code>.</p><pre id="576ee056-f1db-4c79-9ea1-49127759b83b" class="code"><code>if debug_mode:
+    layout = env.get_template(&quot;debug_layout.html&quot;)
+else:
+    layout = env.get_template(&quot;layout.html&quot;)
+
+user_detail = env.get_template(&quot;user/detail.html&quot;, layout=layout)</code></pre><p id="fd80d329-c514-412f-ac48-84f5a85e46ef" class=""><code>{% extends layout %}</code></p><p id="a1c745f1-dfdd-41c3-ae30-776d27e78110" class="">Note how <code>extends</code> is passed the variable with the template object that was passed to <code>render</code>, instead of a string.</p></div><p id="8fdea5e0-81b0-44ab-b057-4b9ef12e47d1" class="">Automatic escaping is enabled, so if <code>name </code>contains HTML it will be escaped automatically.  </p><ul id="90fb647c-d240-4956-862f-3c574c6d4b52" class="toggle"><li><details open=""><summary>Illustration</summary><p id="72d64cde-6de7-4ae6-b200-fd1e1b270ee4" class="">If you can trust a variable and you know that it will be safe HTML (for example because it came from a module that converts wiki markup to HTML) you can mark it as safe by using the
+<a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Markup"><code>Markup</code></a> class </p><pre id="619ec802-17d1-4776-9465-e29b75174289" class="code"><code>from markupsafe import Markup
+
+Markup(&#x27;&lt;strong&gt;Hello %s!&lt;/strong&gt;&#x27;) % &#x27;&lt;blink&gt;hacker&lt;/blink&gt;&#x27;
+Markup(&#x27;&lt;strong&gt;Hello &amp;lt;blink&amp;gt;hacker&amp;lt;/blink&amp;gt;!&lt;/strong&gt;&#x27;)
+
+Markup.escape(&#x27;&lt;blink&gt;hacker&lt;/blink&gt;&#x27;)
+Markup(&#x27;&amp;lt;blink&amp;gt;hacker&amp;lt;/blink&amp;gt;&#x27;)
+
+Markup(&#x27;&lt;em&gt;Marked up&lt;/em&gt; &amp;raquo; HTML&#x27;).striptags()
+&#x27;Marked up » HTML&#x27;</code></pre><p id="9e93b3bb-b81b-40f5-951e-533390dcf260" class="">or by using the <code>|safe</code> filter in the template like  <code>{{ value|safe }}</code></p></details></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="d8eb1e87-f160-44e0-a10e-9b6043c07975"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Inside templates you also have access to the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Flask.config"><code>config</code></a>, <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.request"><code>request</code></a>, <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.session"><code>session</code></a><code> </code>and <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.g"><code>g</code></a> <a href="https://flask.palletsprojects.com/en/2.1.x/quickstart/#id3">1</a>
+objects as well as the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.url_for"><code>url_for()</code></a> and <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.get_flashed_messages"><code>get_flashed_messages()</code></a> functions.</div></figure><h1 id="5296a120-87e7-4739-8820-fb4aaaac2202" class=""><strong>The Request Object</strong></h1><pre id="323f239b-491e-44f7-9e11-425ca030dfd3" class="code"><code>	from flask import request</code></pre><p id="31bec90f-e491-40d0-aaf0-e92cbd7e832a" class="">The current request method is available by using the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Request.method"><code>method</code></a> attribute.  To access form data (data transmitted in a <code>POST</code> or <code>PUT </code> request) you can use the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Request.form"><code>form</code></a> attribute.</p><pre id="ca227295-a48c-419f-8e6d-1241a4aa74d2" class="code"><code>@app.route(&#x27;/login&#x27;, methods=[&#x27;POST&#x27;, &#x27;GET&#x27;])
+def login():
+    error = None
+    if request.method == &#x27;POST&#x27;:
+        if valid_login(request.form[&#x27;username&#x27;],
+                       request.form[&#x27;password&#x27;]):
+            return log_the_user_in(request.form[&#x27;username&#x27;])
+        else:
+            error = &#x27;Invalid username/password&#x27;
+    # the code below is executed if the request method
+    # was GET or the credentials were invalid
+    return render_template(&#x27;login.html&#x27;, error=error)</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="b932f9c1-78bf-480d-a4cc-4481e9614e6e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">GET is used to request data from a specified resource.<p id="8504efd4-6099-4e48-bbae-22b8466f708a" class="">POST is used to send data to a server to create/update a resource.</p></div></figure><h1 id="8a545e76-39fe-4145-b74a-c0d09cf6349a" class=""><strong>File Uploads</strong></h1><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="fc7ccd33-19bf-481c-bd92-ff69aeb4014b"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">The basic idea of file uploads is actually quite simple.  It basically works like this:<ol type="1" id="3e640231-734d-4ea6-88b8-ff361cc952a8" class="numbered-list" start="1"><li>A <code>&lt;form&gt;</code> tag is marked with <code>enctype=multipart/form-data </code>and an <code>&lt;input type=file&gt;</code> is placed in that form.</li></ol><ol type="1" id="99cdc8b5-a2f1-40b5-8adc-c7431e6c4000" class="numbered-list" start="2"><li>The application accesses the file from the <code>files </code>dictionary on the request object.</li></ol><ol type="1" id="6d9f08d4-36dd-4082-bc74-926d7acea62b" class="numbered-list" start="3"><li>use the <a href="https://werkzeug.palletsprojects.com/en/2.1.x/datastructures/#werkzeug.datastructures.FileStorage.save"><code>save()</code></a> method of the file to save the file permanently somewhere on the filesystem.</li></ol></div></figure><p id="27b99cb4-7f23-4ca2-a145-c7dc783930e0" class="">You can handle uploaded files with Flask easily.  Just make sure not to forget to set the <code>enctype=&quot;multipart/form-data&quot; </code>attribute on your HTML form, otherwise the browser will not transmit your files at all.</p><ul id="186ff8c1-8008-4291-8844-b4de4c4f7d1b" class="bulleted-list"><li style="list-style-type:disc">Each uploaded file is first saved in a temporary location on the server,  before it is actually saved to its ultimate location. </li></ul><ul id="02af5f60-d755-4e14-9eb1-23f70f0f81a6" class="bulleted-list"><li style="list-style-type:disc">Name of destination file can be hard-coded (<code>f.save(&#x27;/var/www/uploads/uploaded_file.txt&#x27;)</code>)or can be obtained from filename property of <strong>request.files[file]</strong> object (<code>file.save(f&quot;/var/www/uploads/{secure_filename(file.filename)}&quot;)</code>). </li></ul><ul id="8aa8e2d8-d36f-4377-a591-7ee575aa2615" class="bulleted-list"><li style="list-style-type:disc">However, it is recommended to obtain a secure version of it using the <strong>secure_filename() </strong> function.</li></ul><p id="190416e8-34fc-4366-97f1-b717732a99a0" class="">
+</p><pre id="ab19ef96-1b96-4830-9343-c286d91a7060" class="code"><code>from werkzeug.utils import secure_filename
+
+@app.route(&#x27;/upload&#x27;, methods=[&#x27;GET&#x27;, &#x27;POST&#x27;])
+def upload_file():
+    if request.method == &#x27;POST&#x27;:
+        file = request.files[&#x27;the_file&#x27;]
+        file.save(f&quot;/var/www/uploads/{secure_filename(file.filename)}&quot;)
+    ...</code></pre><h2 id="e80b03ac-3a3f-4aae-b056-42f1784f8abf" class="">Illustration</h2><p id="ba41d91e-8977-4ebe-a75a-751c1dcc06af" class="">The following code has <strong>‘/upload’</strong> URL rule that displays <strong>‘upload.html’</strong> from the templates folder, and <strong>‘/upload-file’</strong> URL rule that calls <strong>uploader()</strong> function handling upload process.</p><p id="cf3596d1-5263-4fef-9124-4474117c24e9" class=""><strong>‘upload.html’</strong> has a file chooser button and a submit button.</p><pre id="3848b1a9-736c-4ccf-8ce3-387d77cc8385" class="code"><code>&lt;html&gt;
+   &lt;body&gt;
+      &lt;form action = &quot;http://localhost:5000/uploader&quot; method = &quot;POST&quot; 
+         enctype = &quot;multipart/form-data&quot;&gt;
+         &lt;input type = &quot;file&quot; name = &quot;file&quot; /&gt;
+         &lt;input type = &quot;submit&quot;/&gt;
+      &lt;/form&gt;
+   &lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="10fa5f06-d22e-4ec8-8c1f-acafbf63cecb" class="">Output: </p><figure id="898c411e-9635-422b-ab0a-a978442bdb16" class="image"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Untitled%203.png"><img style="width:404px" src="Flask%20dd40517afb384b2185398637eb3efeca/Untitled%203.png"/></a></figure><p id="98b93ade-a2c4-46a1-a5da-08e112244992" class="">Click <strong>Submit </strong>after choosing file. Form’s post method invokes <strong>‘/upload_file’ </strong> URL. The underlying function <strong>uploader() </strong> does the save operation.</p><pre id="9ea7d1a6-904b-4b14-bf86-5cf67614001e" class="code code-wrap"><code>from flask import Flask, render_template, request
+from werkzeug import secure_filename
+app = Flask(__name__)
+
+@app.route(&#x27;/upload&#x27;)
+def upload_file():
+   return render_template(&#x27;upload.html&#x27;)
+
+@app.route(&#x27;/uploader&#x27;, methods = [&#x27;GET&#x27;, &#x27;POST&#x27;])
+def upload_file():
+   if request.method == &#x27;POST&#x27;:
+      f = request.files[&#x27;file&#x27;]
+      f.save(secure_filename(f.filename))
+      return &#x27;file uploaded successfully&#x27;
+
+if __name__ == &#x27;__main__&#x27;:
+   app.run(debug = True)</code></pre><h1 id="b82baed9-684e-402a-9d2f-931e030d8a75" class=""><strong>Redirects and Errors</strong></h1><p id="36f0bc48-f8b5-4753-92a6-0f7f28ff382f" class="">To redirect a user to another endpoint, use the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.redirect"><code>redirect()</code></a><code> </code>function; to abort a request early with an error code, use the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.abort"><code>abort()</code></a> function:</p><pre id="e2527872-27f5-4d33-a69e-ffb407020956" class="code"><code>from flask import abort, redirect, url_for
+
+@app.route(&#x27;/&#x27;)
+def index():
+    return redirect(url_for(&#x27;login&#x27;))
+
+@app.route(&#x27;/login&#x27;)
+def login():
+    abort(401)
+    this_is_never_executed()</code></pre><p id="9b665474-28ac-4099-a0f4-13e34caba744" class="">This is a rather pointless example because a user will be redirected from the index to a page they cannot access (401 means access denied) but it shows how that works.</p><p id="bded9277-f929-43a8-ac2c-c9610ee09aff" class="">By default a black and white error page is shown for each error code.  If you want to customize the error page, you can use the<a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.Flask.errorhandler"><code>errorhandler()</code></a> decorator:</p><pre id="bca18a97-5b54-4753-8967-74bf4b0bc4d7" class="code"><code>from flask import render_template
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template(&#x27;page_not_found.html&#x27;), 404</code></pre><p id="af108a55-79e9-4b5c-b3db-5d9eed54efa6" class="">Note the <code>404</code>after the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.render_template"><code>render_template()</code></a> call.  This tells Flask that the status code of that page should be 404 which means not found.  By default 200 is assumed which translates to: all went well.</p><h1 id="575fd98a-7c31-4aef-84ac-87027491e409" class="">Responses</h1><p id="244937d0-a67d-4d36-90c8-44860fe18092" class="">The return value from a view function is automatically converted into a response object.</p><p id="e434b021-7a89-42a6-8176-8d1b261ca6dc" class="">The logic that Flask applies to converting return values into response objects is as follows:</p><ol type="1" id="4e046c6a-3ca9-47ed-aa3e-deba27c7464f" class="numbered-list" start="1"><li>If a response object of the correct type is returned it’s directly returned from the view.</li></ol><ol type="1" id="69a522a8-a563-4f6d-841a-c0ec8e21a3a8" class="numbered-list" start="2"><li>If it’s a string, a response object is created with that data and the default parameters.</li></ol><ol type="1" id="e682bd67-1746-40e3-a8ee-107e43385dc8" class="numbered-list" start="3"><li>If it’s a dict, a response object is created using <code>jsonify</code>.</li></ol><ol type="1" id="c1cc8aff-9294-447c-9ddf-9153173f7f4d" class="numbered-list" start="4"><li>If a tuple is returned the items in the tuple can provide extra information. Such tuples have to be in the form<code>(response, status)</code>, <code>(response, headers)</code>, or <code>(response, status, headers)</code>. The <code>status</code> value will override the status code and <code>headers</code> can be a list or dictionary of
+additional header values.</li></ol><ol type="1" id="97ccaeae-90ac-4b6c-9fbe-d5396d6e702b" class="numbered-list" start="5"><li>If none of that works, Flask will assume the return value is a valid WSGI application and convert that into a response object.</li></ol><p id="c87e1154-ea8e-4455-8a18-f2f6c1521a3f" class="">If you want to <em><strong><mark class="highlight-red">get hold</mark></strong></em> of the resulting response object inside the view you can use the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.make_response"><code>make_response()</code></a> function.</p><p id="f3480067-f486-4a95-acab-b3e6fa04e459" class="">Originally, this is our view function:</p><pre id="4605cb28-f6bd-4a02-8ca8-7080fb08ca27" class="code"><code>from flask import render_template
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template(&#x27;error.html&#x27;), 404</code></pre><p id="4b967f4c-e760-4237-8647-6a3ee9a7634a" class="">we just need to wrap the return expression with <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.make_response"><code>make_response()</code></a> and get the response object to modify it, then return it:</p><pre id="25aaf4f5-39ec-4f02-8d5b-15d151fb11bb" class="code code-wrap"><code>from flask import make_response
+
+@app.errorhandler(404)
+def not_found(error):
+    resp = make_response(render_template(&#x27;error.html&#x27;), 404)
+    resp.headers[&#x27;X-Something&#x27;] = &#x27;A value&#x27;
+    return resp</code></pre><h1 id="250666ec-93f5-4f2c-a498-39f04108d07e" class=""><strong>APIs with JSON</strong></h1><p id="d9b0704f-200d-4c1a-a626-1aa5bd60cfdb" class="">A common response format when writing an API is JSON.</p><p id="069fee2f-a292-4ad3-8565-bd191b7742ce" class="">If we return a <code>dict </code> from a view, it will be converted to a JSON response.</p><pre id="5e5df74a-b468-4fc6-8849-85c14c5a4899" class="code code-wrap"><code>@app.route(&quot;/me&quot;)
+def me_api():
+    user = get_current_user()
+    return {
+        &quot;username&quot;: user.username,
+        &quot;theme&quot;: user.theme,
+        &quot;image&quot;: url_for(&quot;user_image&quot;, filename=user.image),
+    }</code></pre><p id="958acc63-bdd5-437c-82f4-9f1ad35c11d3" class="">Depending on your API design, you may want to create JSON responses for types other than <code>dict</code>. In that case, use the <a href="https://flask.palletsprojects.com/en/2.1.x/api/#flask.json.jsonify"><code>jsonify()</code></a><code> </code> function, which will serialize any supported JSON data type.</p><pre id="5ee9b793-203f-470d-96e0-101caaaa5fda" class="code"><code>from flask import jsonify
+
+@app.route(&quot;/users&quot;)
+def users_api():
+    users = get_all_users()
+    return jsonify([user.to_json() for user in users])</code></pre><p id="faf0bd03-bdd9-47dd-a4b9-aedb86e43749" class="">Or look into Flask community extensions that support more complex applications.</p><h1 id="8844e95e-2c52-423f-a620-a62d8fcd73f8" class="">Cookies</h1><h1 id="578f285f-fd34-4f87-b5fe-5c07038fdd1e" class="">Sessions</h1><p id="24f1c5f6-7291-4df7-ad2b-c9ce72f754ce" class="">
+</p><figure id="1e58ba12-39ef-4ad0-a790-c139a1e1e882" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882.html"><span class="icon">📖</span>Flask blog App</a></figure><figure id="9185ce02-92c2-4e6c-a22a-ef1d5b47bf6e" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e.html"><span class="icon">📦</span>PACKAGE</a></figure><figure id="c3c29639-d44f-4fc9-b936-b7838717759a" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/User%20Authentication%20c3c29639d44f4fc9b936b7838717759a.html"><span class="icon">🔐</span>User Authentication</a></figure><figure id="5d810fae-a81b-4063-853a-683873ed421f" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/User%20Account%20&amp;%20Profile%20pic%205d810faea81b4063853a683873ed421f.html"><span class="icon">🥊</span>User Account &amp; Profile pic</a></figure><figure id="b8f16cc6-60d5-4b47-bdc2-bbf6bae998ef" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Create,%20Update%20&amp;%20Delete%20Posts%20b8f16cc660d54b47bdc2bbf6bae998ef.html"><span class="icon">🛠️</span>Create, Update &amp; Delete Posts</a></figure><figure id="ec471865-247f-40e9-96a8-351d90a89d17" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Pagination%20ec471865247f40e996a8351d90a89d17.html"><span class="icon">📃</span>Pagination</a></figure><figure id="2f266000-7465-49d4-8353-9cbff4906c5a" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Email%20&amp;%20Password%202f266000746549d483539cbff4906c5a.html"><span class="icon">📨</span>Email &amp; Password</a></figure><figure id="73d50d15-105a-4d96-be95-1966b2730f14" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Blueprints%2073d50d15105a4d96be951966b2730f14.html"><span class="icon">🗺️</span>Blueprints</a></figure><figure id="88d0482a-d2ce-4fc5-984e-f2df43dacc61" class="link-to-page"><a href="Flask%20dd40517afb384b2185398637eb3efeca/Errors%20Page%2088d0482ad2ce4fc5984ef2df43dacc61.html"><span class="icon">⚠️</span>Errors Page</a></figure><p id="1cfd2160-1dd0-46f8-bcdd-ecc1188c06eb" class="">
+</p></div></article></body></html>

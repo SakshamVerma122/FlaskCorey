@@ -1,0 +1,671 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>PACKAGE</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9185ce02-92c2-4e6c-a22a-ef1d5b47bf6e" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📦</span></div><h1 class="page-title">PACKAGE</h1></header><div class="page-body"><p id="05b1ec25-091c-4938-af1d-5a0c3dda3009" class="">Like we separate our form-oriented code to <a href="http://forms.py">forms.py</a> , we should move our models oriented code to models.py.</p><figure id="1214fa20-b841-4a63-a35c-10d2b982843b" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled.png"><img style="width:1090px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled.png"/></a></figure><figure id="a8a00494-bf3e-43fa-a8b1-5afd06eac23d" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%201.png"><img style="width:827px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%201.png"/></a></figure><p id="af82098e-bff8-4724-8458-f22384e2ede1" class="">When we try to run like this, it will throw an error “<mark class="highlight-pink">circular import</mark>”. </p><figure id="1e13859a-25e3-4298-8700-bf162cae3623" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%202.png"><img style="width:1361px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%202.png"/></a></figure><p id="63ae316c-50c5-4873-a2b4-d96a5c8ee190" class="">This is because we are actually running <a href="http://flaskblog.py">flaskblog.py</a> directly with python.</p><p id="99e22664-68ae-47a7-9bd8-61dcb51e76c3" class="">Anytime if python has to import something it will entirely run that module not any specific section.</p><figure id="c03d1165-6850-4b86-b361-564d8f00301f" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%203.png"><img style="width:760px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%203.png"/></a></figure><p id="421e7a12-db1b-49c5-8340-e92bb8218642" class="">Here, python tries to execute the models module but </p><figure id="d309335c-1bfd-4592-9fc8-949701e8b513" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%204.png"><img style="width:498px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%204.png"/></a></figure><p id="9c1b72c6-3464-4c18-b908-c9101418bbd8" class="">when it comes to the second line, it returns to the flaskblog module, so while executing that module it again comes across from models import User which raises the <mark class="highlight-pink">circular import</mark> error</p><figure id="a391c830-f1e3-4851-8719-ad12f1d45e32" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%205.png"><img style="width:913px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%205.png"/></a></figure><p id="c7106567-7c48-4e29-8b2a-92eae5093f1e" class="">It fails to import db in <a href="http://models.py">models.py</a> because it comes after to the line “from models import User”. </p><p id="f30e768c-d490-4793-8396-195fcf018687" class="">When python directly runs the script it calls the name of the script<mark class="highlight-pink"> “__main__”. </mark>So, when executing the <a href="http://falskblog.py">falskblog.py</a> python know this script by the name “__main__”.<div class="indented"><p id="4c81d1c2-59f9-4cca-b806-b9ec89dcb07c" class="">When python gets to the “from models import User”, it goes to the <mark class="highlight-pink">models</mark> module </p><figure id="afcfac5f-a6a4-484b-9229-f2a49fdd43be" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%204.png"><img style="width:498px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%204.png"/></a></figure><p id="b1638d1f-3eee-4460-a0bb-f6288c343c9f" class="">Python is like “ I don’t know flashblog ( because it renamed that module as “__main__”). So i go execute the module <mark class="highlight-pink">flaskblog</mark>  </p><figure id="84a46196-c713-4e7f-9503-f6c4470cb5e2" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%205.png"><img style="width:913px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%205.png"/></a></figure><p id="437850fa-fd6f-4f99-a4c8-c8c5c7ad9bae" class="">When it comes to the 4th line Python is like, “I know models module, but i haven’t seen <mark class="highlight-pink">User</mark>”. So, it throws the error “<mark class="highlight-pink">ImportError: cannot import name &#x27;User&#x27; from partially initialized module &#x27;models’”. </mark></p><p id="bc704a8b-cae1-40ec-b473-bc15cd5646eb" class="">The above is the reason why it fails to import User instead of failing to import db.</p><h2 id="0982957d-aab8-492f-bc7f-e8db6bcfcef8" class="">Pseudo soln:</h2><figure id="d4240d8e-77e1-41c3-b3d5-e8095b0ff6ba" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%206.png"><img style="width:718px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%206.png"/></a></figure><p id="e9e556d8-560c-4ed3-b452-464a51f20b09" class="">When we execute <a href="http://flaskblog.py">flaskblog.py</a> python goes to line 4 “from models import User”.  It will execute the <a href="http://models.py">models.py</a> now on second line, Python says, “ Hey i already seen the module ‘__main__’ i know but i don’t see ‘db’ there”. It gives the error <mark class="highlight-pink">ImportError: cannot import name &#x27;db&#x27; from &#x27;</mark><mark class="highlight-pink"><strong>main</strong></mark><mark class="highlight-pink">&#x27; .</mark></p><p id="243b2b58-d2d0-4132-a97e-d271bfadeaf1" class="">To resolve this,</p><figure id="41e95cbd-9678-44d3-8591-cf5c9ded7015" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%207.png"><img style="width:833px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%207.png"/></a></figure><p id="c3b596ad-adbf-47c4-a80c-80b88cd241a9" class="">We can move this line “from models import User” down to db line. It will work.</p><p id="2995b9ff-762b-4139-ad1a-59b12af300ee" class="">This solution is ugly and still fails in situations like where the <a href="http://flaskblog.py">flaskblog.py</a> was not set to “__main__”. and we try to run the application. To make it clear look the at the example below,</p><figure id="e3af33a4-8205-4b89-b67f-e3927e0052b3" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%208.png"><img style="width:1270px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%208.png"/></a></figure><p id="4c5f5cf1-5398-40e2-b55e-122031806826" class="">Here we are not directly running flaskblog with python which means flashblog is not set  to “__main__”.</p><h2 id="344ea84e-ffd8-4d08-8699-0dcaf29814b8" class="">Solution:</h2><p id="a89a9b03-ee66-4f63-b8cc-1e15f5b9313d" class="">Restructuring the modules to package will fix all of these.</p><p id="b076219c-05bc-4f9a-b773-8bdd1d672f24" class="">Using a package will make all of these imports simple and allow us to separate things better tha what we did now (forms , models modules)</p><figure id="520720f2-6507-46e8-ae3e-aafa69188a5b" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%209.png"><img style="width:227px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%209.png"/></a></figure><p id="b98d760f-40d8-4ea3-9b6d-ad4d624cb936" class="">Make the directory as package by creating _ _<strong>init_ _</strong>.py</p><p id="d714906d-dcf9-4884-87af-7810fa6cd853" class="">
+</p><p id="f3a768a3-e4c7-4740-bdc9-5b0bcf171706" class="">Renaming our <a href="http://app.py">app.py</a> file to <a href="http://run.py">run.py</a> which will stay outside of the package and we are gonna run our app by run.py instead of running our main app with python.</p></div></p><figure id="c4f86672-93f0-4868-94dd-e83bf36b8f1d" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2010.png"><img style="width:667px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2010.png"/></a></figure><h2 id="a5fa73bf-df8e-4f55-a31a-33877654bbbe" class="">Cleaning up the Imports in our file</h2><figure id="6c458141-8189-4c87-9c2c-24aec6871f15" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2011.png"><img style="width:875px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2011.png"/></a><figcaption>Since we made a package, any module should be referred as pacakge.modue_name .</figcaption></figure><p id="750a7b15-2c95-4694-9398-537fc435f7a3" class="">We need to import the routes in _ _ init _ _.py then only python will know about the routes when we run our app.</p><p id="8d876798-9c4f-447e-a26b-4893490b2ff3" class="">Still we are prone to circular imports,</p><p id="a0536b1d-45c8-4143-804d-09677d615e3f" class="">Therefore we need to import our routes after the app object.</p><figure id="d250b0d4-ee60-4b7f-a6b6-9f2d1a11b4a6" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2012.png"><img style="width:852px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2012.png"/></a></figure><p id="39650dd0-c00a-4f1d-a65c-cf59913e7621" class="">
+</p><p id="9f76fcff-122d-476b-9221-4118f95b680f" class="">In <a href="http://models.py">models.py</a> </p><figure id="d4e1013b-4ca8-4c69-8cce-e72d94cff955" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2013.png"><img style="width:495px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2013.png"/></a></figure><p id="10084b5d-23d0-49f7-9357-f8f7fd30798f" class="">it is not _ _ main _ _ any more,</p><figure id="49bc21ea-4473-4298-8b05-468ae61c1c44" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2014.png"><img style="width:448px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2014.png"/></a></figure><h2 id="0db93fc5-cbf2-4b6e-81c6-539a6c2a7291" class="">Run App</h2><figure id="1ba4dc5a-dbc4-4400-b10b-c50035b52533" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2015.png"><img style="width:1082px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2015.png"/></a></figure><p id="a2e3b975-03e6-445d-a09a-948157e8a4e9" class="">Everything is fixed now.</p><figure id="0354f16c-bef9-44a0-be35-5d9c4f012266" class="image"><a href="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2016.png"><img style="width:1133px" src="PACKAGE%209185ce0292c24e6ca22aef1d5b47bf6e/Untitled%2016.png"/></a></figure></div></article></body></html>

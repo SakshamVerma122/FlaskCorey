@@ -1,0 +1,673 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Flask blog App</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1e58ba12-39ef-4ad0-a790-c139a1e1e882" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📖</span></div><h1 class="page-title">Flask blog App</h1></header><div class="page-body"><h1 id="94b3fd4e-f31e-45c4-8cc9-f5e330b589eb" class="">Forms and user input</h1><p id="137f1770-6e88-459f-b569-1a42c97a2b0c" class="">Our App has the ability to create accounts login to make posts and logout</p><p id="baf31636-c31f-4259-9f3f-3a108bdfb478" class="">To do that, first we have to create registration form for user to create account </p><p id="fe7a06d6-077a-45fd-ae27-83d01bda178a" class="">Luckily form creation is so common and we don’t need to reinvent the wheel. There are some extensions like<mark class="highlight-pink"> WT forms</mark> to work with forms and flask</p><h2 id="35587222-b352-44e6-9bb3-ac7832e31161" class="">WT Forms</h2><pre id="96b02403-c873-4b75-bf78-5ed95dc4e719" class="code"><code>pip install flask-wtf
+pip install wtforms[email]</code></pre><h2 id="14436b08-035f-4013-a350-27ea7d37063c" class="">Forms.py</h2><p id="fce90c3d-2816-4a4c-84b3-75a18361e2b5" class="">Unlike regular HTML registration form we are not doing with HTML, instead we are going to create python classes which will be automatically converted  into HTML forms within our templates.</p><ol type="1" id="5fdd187e-feaf-4857-bde7-38c9274b5d49" class="numbered-list" start="1"><li>Our Form Class </li></ol><ol type="1" id="01843d95-441c-4549-8348-125d984aee05" class="numbered-list" start="2"><li>Every form fields in our class is a imported class as well. eg<pre id="abacbc9d-e381-4fc6-8271-90612f802383" class="code"><code>form_field = StringField(&#x27;[name of the field]&#x27;)
+# the field name can also be used as label in HTML
+username = StringField(&#x27;Username&#x27;)</code></pre></li></ol><ol type="1" id="0dfb2f8d-8819-460f-8711-0231057ae7c2" class="numbered-list" start="3"><li>Use validators to check and validate which will pass as arguments to the fields like <figure id="2d5d976c-96fc-48e3-a2a5-e585be215e89" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled.png"><img style="width:706px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled.png"/></a></figure></li></ol><ol type="1" id="3cbc9e12-b895-4c53-ae8b-58d235660fc5" class="numbered-list" start="4"><li>Add SubmitField at last</li></ol><h2 id="4a6f47d9-b431-493e-8056-4a4cdf9e0ff6" class=""> Secret key</h2><p id="8dbcfcf3-0938-4486-9cdc-a4eeaa81e968" class="">When we use Forms we need to set secret key for our application.</p><p id="eada6624-e883-4b11-822c-be04d1daf74b" class="">A secret key will protect against </p><ol type="1" id="893d773e-9737-499c-b1fc-ad0c215e2349" class="numbered-list" start="1"><li>cross site request forgery attacks</li></ol><ol type="1" id="022e8805-c5ba-48f8-a743-834f2811fe65" class="numbered-list" start="2"><li>modifying cookies</li></ol><p id="b6c078a4-af66-40ef-b6f6-ffc96dee52cd" class="">This can be done by setting app variable in our application</p><figure id="e30f9dc9-1250-41a3-920f-d0bad1c77ee8" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%201.png"><img style="width:676px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%201.png"/></a></figure><p id="bd57d182-8ffa-4131-b358-ebe0c9ad672e" class="">We want some random characters as our secret key. Random characters can be generated by</p><figure id="575b7f68-4c50-4937-8465-1895a56bc317" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%202.png"><img style="width:447px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%202.png"/></a></figure><h2 id="adb4a71b-b894-4a33-86f6-cbfcc0548abd" class="">Template [Forms]</h2><p id="d0f8cb70-7dae-449c-92e0-da4dc5dd5add" class="">Example</p><figure id="ab7a0dc8-f0ef-49d0-8950-e78d8efe8fbf" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%203.png"><img style="width:946px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%203.png"/></a></figure><p id="4caf612e-5d1a-435b-9048-776430c7df8d" class="">The first field we need is <mark class="highlight-pink">form.hidden_tag() </mark>it will add<mark class="highlight-pink"> CSRF Token </mark>or cross site request forgery.</p><p id="492062e7-8768-424d-b238-8a75d846ece5" class="">This is hidden tag is part of the protection.</p><p id="2a091ac9-3200-4591-a031-a053ccdb35ee" class="">Points to be noted</p><ul id="e51d8275-9062-47b9-b1a3-8597d410802f" class="bulleted-list"><li style="list-style-type:disc">Add all the fields required for the form within fieldset tag.</li></ul><ul id="758234fe-9d4e-404b-8c44-cef1c3f02d50" class="bulleted-list"><li style="list-style-type:disc">url_for( [name of the view function] )</li></ul><ul id="411b98c9-0330-4a10-996e-b6e3a53d75b5" class="bulleted-list"><li style="list-style-type:disc">form action=” “ will redirect to the same page on submission</li></ul><h3 id="954e9115-1ffc-48e0-aa09-61ed506b66b2" class="">Modify the View Function</h3><p id="038e2290-01f3-4f21-b2b1-88ffaae78fd9" class="">For eg:</p><figure id="db11f154-b7f3-4135-8afb-e8d40d3f02b5" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%204.png"><img style="width:801px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%204.png"/></a></figure><ol type="1" id="e3b3982b-1ffa-41ef-a75d-723ebf44fed7" class="numbered-list" start="1"><li>Allow the route accept the HTTP methods</li></ol><ol type="1" id="6b300605-1517-4b19-84de-20f5b583130d" class="numbered-list" start="2"><li>validate_on_submit() will validate the form on submission</li></ol><ol type="1" id="b88624f7-e9c4-4358-8f75-48a9969817f8" class="numbered-list" start="3"><li>flash() —&gt; flash messages are the one time alert messages. To differentiate between different kind of alerts second argument called category to the flash() has to be passed as above. Note: here the category passed is bootstrap class </li></ol><ol type="1" id="a3d3c1ec-7320-4508-98b6-36588f89e3c2" class="numbered-list" start="4"><li>If the form is validate we need to redirect to the destination page</li></ol><p id="2394e5f5-e9c3-4d09-a1a6-223451a61a00" class=""> </p><h3 id="d19d23d8-5f19-4dc7-b69c-a4be5009609f" class="">Update the template</h3><p id="3418eb2e-44ba-4c66-ac87-f711db232095" class="">Flash messages can be poped up on any page. So, we need to tell where they have to go</p><p id="05421c38-940f-4839-b082-9fb6115a87b3" class="">For eg</p><figure id="0242c997-bb47-472e-a99c-9db1f7dd07c7" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%205.png"><img style="width:787px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%205.png"/></a></figure><p id="d6edea58-69cf-45dd-8b90-668898cacb42" class="">get_flashed_messages() —&gt; will get the flash messages. The argument with_categories = true will allow as to get the category which we passed in flash() function.</p><h2 id="56e34731-cb1b-4c46-aef1-2a8c35c26c87" class="">Update the View functions (For Flash messages)</h2><figure id="8509a3e4-c602-40e9-9c4f-507517b92fcd" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%206.png"><img style="width:918px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%206.png"/></a></figure><p id="8c15b7ed-501f-430a-a571-7f4350fd02b0" class="">Examples</p><figure id="a35bc370-ab26-42de-b07a-19b30d167ef9" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%207.png"><img style="width:961px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%207.png"/></a></figure><figure id="91508a5f-a40c-4f0f-ad02-4453c9cb509d" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%208.png"><img style="width:810px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%208.png"/></a></figure><figure id="0810188b-b589-464e-ab4d-52d784870362" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%209.png"><img style="width:945px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%209.png"/></a></figure><h2 id="cf1d8b81-7c99-4d2c-af5c-da65cf14bdef" class="">Validation feedback</h2><p id="01c27bf9-d355-4f46-960c-3d4111e47743" class="">If the input is incorrect, end user should be acknowledged what went wrong in the input</p><p id="7ff60f58-99f3-4c73-968f-6a59b39f7267" class="">Eg :</p><figure id="987a9e95-d28c-4bb0-a3e1-6f6d8e7eba1e" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%2010.png"><img style="width:967px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%2010.png"/></a></figure><p id="cf66db44-f7a5-409b-b941-f263a02bfa14" class="">The bootstrap classes <mark class="highlight-pink">is-invalid</mark> &amp; <mark class="highlight-pink">invalid-feedback</mark> will help in this regard. We achieve the feedback with conditionals. </p><figure id="75a10355-b255-43d9-a7b4-2c0ae76a244d" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%2011.png"><img style="width:899px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%2011.png"/></a></figure><figure id="6881ad74-8d9c-4bcd-a65a-d5d8910b0c7c" class="image"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%2012.png"><img style="width:887px" src="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Untitled%2012.png"/></a></figure><p id="bbf7e691-94d6-43fb-af63-eff9aa865851" class="">
+</p><figure id="e38fdd66-f301-4ee1-80ac-63dee5b1428d" class="link-to-page"><a href="Flask%20blog%20App%201e58ba1239ef4ad0a790c139a1e1e882/Database%20e38fdd66f3014ee180ac63dee5b1428d.html">Database</a></figure></div></article></body></html>

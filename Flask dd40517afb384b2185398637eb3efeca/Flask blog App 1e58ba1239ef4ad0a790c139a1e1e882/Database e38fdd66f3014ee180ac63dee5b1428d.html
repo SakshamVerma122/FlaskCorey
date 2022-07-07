@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Database</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e38fdd66-f301-4ee1-80ac-63dee5b1428d" class="page sans"><header><h1 class="page-title">Database</h1></header><div class="page-body"><h1 id="337e5bae-aa6b-41cd-afbb-fcde05b99b48" class="">SQL Alchemy</h1><p id="ccf9e74a-079a-4e9e-b113-a1e8dbb4fda4" class="">Python SQL toolkit &amp; Popular ORM (Object Relational Mapper)</p><ul id="20fe9b3a-71d9-4c5c-9820-703a8572125e" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.sqlalchemy.org/">SQLAlchemy</a> is a library that facilitates the communication between Python programs
+ and databases. </li></ul><ul id="2de5997c-1ffb-44b6-b672-93bdbb7d6373" class="bulleted-list"><li style="list-style-type:disc">Most of the times, this library is used as an <a href="https://en.wikipedia.org/wiki/Object-relational_mapping">Object Relational Mapper (ORM)</a>  tool that translates Python classes to tables on relational databases  and automatically converts function calls to SQL statements. </li></ul><ul id="3101f726-d7cf-4d61-baef-eeef30a3cafe" class="bulleted-list"><li style="list-style-type:disc">SQLAlchemy  provides a standard interface that allows developers to create 
+database-agnostic code to communicate with a wide variety of database 
+engines. Which means we can use different databases without changing our python code</li></ul><h2 id="cc7e1e69-dc3f-4136-807f-2cfd15828137" class="">ORM</h2><p id="d535e36d-e0c7-4edf-9638-ba7ea391754e" class="">An <a href="https://www.prisma.io/dataguide/types/relational/comparing-sql-query-builders-and-orms#what-are-orms">object-relational mapper</a> provides an object-oriented layer between relational databases and  object-oriented programming languages without having to write SQL  queries. It standardizes interfaces reducing boilerplate and speeding development time.</p><p id="cf8d3e70-2197-47fe-821a-a9516e353493" class="">ORMs enhance productivity by creating highly-abstract data models and automatically generating SQL code. These tools also make it easier to separate the database from the programming logic giving developers more flexibility. But ORMs have their detractors. Common complaints include reduced performance, extra coding, and poor mapping depending on the ORM quality.</p><h1 id="e227dbdb-d539-441f-ba17-1cf447bb4515" class="">Setup in Flask App</h1><p id="064f2939-ff26-4f8f-96cc-5216f68c67ed" class="">Flask specific SQLAlchemy</p><pre id="2a613d97-a306-403a-8504-2157b766db9e" class="code"><code>#Install
+	pip install flask-sqlalchemy
+#Import
+	from flask_sqlalchemy import SQLAlchemy</code></pre><h2 id="35fee442-735e-4e50-b5eb-2881b09d1b12" class="">URI</h2><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="733d2342-06ec-491f-b919-1489fcb30b3d"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">A URL provides the location of the resource. A URI identifies the resource by name at the specified location or URL.</div></figure><p id="ca08cf8c-874c-456c-bf00-6ef1f40ffc89" class="">We need to specify the URI of our DB in our APP. Here, we are gonna use SQLite DB which is easy to get and run. This DB will present as a <strong>file</strong> in our file system.</p><pre id="b2d3853b-d788-4ef4-a802-773ac2e49748" class="code"><code>app.config[&#x27;SQLALCHEMY_DATABASE_URI&#x27;] = &#x27;sqlite:///site.db&#x27; 
+# &#x27;///&#x27; --&gt; relative path from the current file</code></pre><figure id="d07678f4-ac45-4fda-98c7-a1a5684da5f5"><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/#" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title"></div></div><div class="bookmark-href">https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/#</div></div></a></figure><h2 id="cd0c5ca2-ec4a-4dbc-8b8b-2379c12f76eb" class="">SQLAlchemy Object</h2><p id="5c16ba5c-3f0d-43d9-812e-4edec991380a" class="">Create the <a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.SQLAlchemy"><code>SQLAlchemy</code></a> object by passing it the application.</p><pre id="d8e0a5f8-d1f4-4d9e-b319-b5239c1b4fd6" class="code"><code>db = SQLAlchemy(app)</code></pre><p id="636bfb8d-daed-4a79-95b7-3405929bb7b4" class="">That object then contains all the functions and helpers from both <code>sqlalchemy</code> and <code>sqlalchemy.orm</code>.  Furthermore it provides a class called <code>Model</code> that is a declarative base which can be used to declare models</p><h1 id="1f7c7093-3045-4605-a3a6-f346f473679b" class="">Models</h1><p id="6cffb531-6629-4075-a716-6aad2dac0650" class="">We can create our model as shown below</p><pre id="a0feb3f0-d906-4354-a8a5-2ddfffab2f72" class="code"><code>class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)</code></pre><ul id="d6dd2201-3a1b-4d12-a639-fe88759c4cf1" class="bulleted-list"><li style="list-style-type:disc">Use <a href="https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.Column"><code>Column</code></a> to define a column.  <ul id="218595e6-e8ee-4751-a8b0-447e291844da" class="bulleted-list"><li style="list-style-type:circle">The name of the column is the name you assign it to.  </li></ul><ul id="77992e61-3194-4088-8379-bacde7525a68" class="bulleted-list"><li style="list-style-type:circle">If you want to use a different name in the table you can provide an optional first argument which is a string with the desired column name.  </li></ul></li></ul><ul id="8df3cb87-e412-458d-bbfd-2ffcd971085a" class="bulleted-list"><li style="list-style-type:disc">Primary keys are marked with<code>primary_key=True</code>. Multiple keys can be marked as primary keys in which case they become a compound primary key.</li></ul><ul id="b1040d0b-3738-45f7-85cf-759550463b84" class="bulleted-list"><li style="list-style-type:disc">The types of the column are the first argument to <a href="https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.Column"><code>Column</code></a>.<table id="cece2f54-626b-42ec-8d99-45f686edbb4e" class="simple-table"><tbody><tr id="05e5c56c-273a-43a3-9f25-5797e9cbda94"><td id="geXc" class="">Integer</td><td id="{]n`" class="">an integer</td></tr><tr id="9509a79a-e40a-4784-8a0d-e08fb7f37b73"><td id="geXc" class="">String(size)</td><td id="{]n`" class="">a string with a maximum length
+(optional in some databases, e.g.
+PostgreSQL)</td></tr><tr id="4032bbe3-64a2-487f-ac1e-a228c5eb2c8a"><td id="geXc" class="">Text</td><td id="{]n`" class="">some longer unicode text</td></tr><tr id="03108a72-b628-4bb1-b38f-a0407830b9d0"><td id="geXc" class="">DateTime</td><td id="{]n`" class="">date and time expressed as Python
+datetime object.</td></tr><tr id="9a50e84f-e3fe-4087-aac2-493d844c5102"><td id="geXc" class="">Float</td><td id="{]n`" class="">stores floating point values</td></tr><tr id="c894e489-5d64-46b5-805f-fd5d0ff1d606"><td id="geXc" class="">Boolean</td><td id="{]n`" class="">stores a boolean value</td></tr><tr id="c0904d6e-7a27-4cc6-9127-22646cb60912"><td id="geXc" class="">PickleType</td><td id="{]n`" class="">stores a pickled Python object</td></tr><tr id="e2d52477-453c-48db-a73a-90d34cb349f5"><td id="geXc" class="">LargeBinary</td><td id="{]n`" class="">stores large arbitrary binary data</td></tr></tbody></table><p id="f06b5865-25e5-4d3b-b551-9725e24a6a55" class=""><code>nullable=False </code>tells SQLAlchemy to create the column as <code>NOT NULL</code>.</p><h3 id="61a60217-0514-474e-b886-c6c3015836e2" class="">Example : Our Blog App </h3><figure id="b79a8b01-60ea-4628-872e-64bb8c66d9ac" class="image"><a href="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled.png"><img style="width:908px" src="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled.png"/></a></figure><ol type="1" id="78012fd9-f5d1-4620-b46a-ceea802570ff" class="numbered-list" start="1"><li>The reason we make our image_file and password as <mark class="highlight-blue">sting type</mark> is that we will pass those values as <mark class="highlight-blue">hashed values.</mark></li></ol><ol type="1" id="5031f200-284e-4e9e-983d-3b4770074fce" class="numbered-list" start="2"><li>We want to pass<mark class="highlight-orange"> function as argument</mark> to date_posted column so<mark class="highlight-orange"> datetime.utcnow</mark> won’t take parenthesis. Suppose if we pass <mark class="highlight-red">datetime.utcnow() will pass the current time </mark>to that function so date_posted column will have the date of when the model created instead of blog posted.</li></ol><h2 id="317fc9d4-7c56-4cb0-bb34-f452999798b3" class=""><strong>One-to-Many Relationships</strong></h2><p id="bfc58d17-59c4-4e07-a429-07abae9a01ee" class="">Relationships are expressed with the <a href="https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship"><code>relationship()</code></a>function.  However the foreign key has to be separately declared with the <a href="https://docs.sqlalchemy.org/en/14/core/constraints.html#sqlalchemy.schema.ForeignKey"><code>ForeignKey</code></a> class:</p><pre id="7b4334e4-64e9-4297-a43b-875e5d085553" class="code"><code>class Person(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    addresses = db.relationship(&#x27;Address&#x27;, backref=&#x27;person&#x27;, lazy=True)
+
+class Address(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), nullable=False)
+    person_id = db.Column(db.Integer, db.ForeignKey(&#x27;person.id&#x27;),
+        nullable=False)</code></pre><ol type="1" id="1879da5b-f244-4f97-965b-f361fd848e80" class="numbered-list" start="1"><li><code>backref</code> is a simple way to also declare a new property on the <code>Address</code> class.<ol type="a" id="3dc70487-a8e0-42ff-ae55-4e3999916e2f" class="numbered-list" start="1"><li>You can then also use <code>my_address.person</code> <mark class="highlight-blue">to get to the person</mark> at that address.</li></ol></li></ol><ol type="1" id="96a07378-1dd3-4884-990d-215e869da3d1" class="numbered-list" start="2"><li><code>lazy</code> defines when SQLAlchemy will load the data from the database:<ul id="ef2e7e07-88ba-4db5-9077-06225de39179" class="bulleted-list"><li style="list-style-type:disc"><code>&#x27;select&#x27;</code> / <code>True</code> (which is the default, but explicit is better
+than implicit) means that SQLAlchemy will load the data as necessary
+in one go using a standard select statement.</li></ul><ul id="eae28300-f8df-464e-8c2c-45b645136faa" class="block-color-gray bulleted-list"><li style="list-style-type:disc"><code>&#x27;joined&#x27;</code> / <code>False</code> tells SQLAlchemy to load the relationship in
+the same query as the parent using a <code>JOIN</code> statement.</li></ul><ul id="5d6d592c-22a3-4c16-bb4a-b5fb6661c6a3" class="block-color-gray bulleted-list"><li style="list-style-type:disc"><code>&#x27;subquery&#x27; </code>works like <code>&#x27;joined&#x27; </code> but instead SQLAlchemy will use a subquery.</li></ul><ul id="ada50c89-f6b3-4b9c-b4ee-9e644cca57ea" class="block-color-gray bulleted-list"><li style="list-style-type:disc"><code>&#x27;dynamic&#x27;</code> is special and can be useful if you have many items and always want to apply additional SQL filters to them.</li></ul><ul id="d929c6a0-4120-48a4-9dcd-689ef00ea0b8" class="block-color-gray bulleted-list"><li style="list-style-type:disc">refer : <figure id="3796046b-cd4d-409d-882e-65a4cf5e501d"><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/#one-to-many-relationships" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title"></div></div><div class="bookmark-href">https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/#one-to-many-relationships</div></div></a></figure></li></ul><h3 id="d564a7b3-a126-44a7-9030-baf138197469" class="">Example : Our Blog App</h3><figure id="bb7b7618-27d3-4f9d-a929-cb7ea8714b6c" class="image"><a href="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled%201.png"><img style="width:900px" src="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled%201.png"/></a></figure><ol type="1" id="e107bfcb-e779-4779-a2a3-80815f9f7c51" class="numbered-list" start="1"><li>We relate User model to Post model with the help of <mark class="highlight-pink">db.relationship()</mark> function. This function will take Model name as<mark class="highlight-pink"> argument. </mark></li></ol><ol type="1" id="b2cb3924-1dd6-44ca-b995-ec1a417c058b" class="numbered-list" start="2"><li>db.ForeignKey() function take column name as argument which is the reference. So we pass<mark class="highlight-pink"> [table.column name]</mark> </li></ol><figure id="fde7dfca-0eab-4334-8c3f-3134d79344bf" class="image"><a href="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled%202.png"><img style="width:740px" src="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled%202.png"/></a></figure><p id="2055cfb0-e498-488a-966d-e2eb92b09397" class="">We only have the id of the user ( user information) in our post table. Thus, we can get only the user id who created the post. In case we want to know the entire user object <mark class="highlight-yellow">backref </mark>comes to play</p><figure id="6fdf87b9-98d2-472c-8e83-8489d0870a5f" class="image"><a href="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled%203.png"><img style="width:740px" src="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled%203.png"/></a><figcaption>backref = author as we mentioned in the relation </figcaption></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="b3e313ec-8461-40ee-a51b-8e9b15bb2863"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Model name is in Sentence case like User, Post.
+Table name is in lower case like user, post.
+By default the table got its name by lowering the model name. If we want we can set our own name to the table.</div></figure></li></ol><h2 id="25ee8381-2d8d-4563-80fc-aec2ee12f8fa" class=""><strong>Many-to-Many Relationships</strong></h2><figure id="d7845061-4de4-40ac-a440-7fc684de2e38"><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/#many-to-many-relationships" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title"></div></div><div class="bookmark-href">https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/#many-to-many-relationships</div></div></a></figure><h1 id="618583f7-f671-4be5-b63c-e9b37f36db00" class="">DB Query</h1><h2 id="42d61093-a1a7-40f3-aaea-9b32e2d5209a" class="">Create</h2><p id="42d2eba2-ab27-401f-beeb-5d08383e2afd" class="">To create the initial database, just import the <code>db</code> object from an interactive Python shell and run the<code> </code><a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.SQLAlchemy.create_all"><code>SQLAlchemy.create_all()</code></a> method to create the tables and database:</p><pre id="dea63c8f-2159-4392-ad2e-26ae5a14944c" class="code code-wrap"><code>&gt;&gt;&gt; from yourapplication import db
+&gt;&gt;&gt; db.create_all()</code></pre><h2 id="0e7684f0-a8fd-4d9b-98eb-cd09cf6d62be" class="">Inserting</h2><p id="29e90864-2923-4084-b288-ccc449f0ae7d" class="">Inserting data into the database is a three step process:<div class="indented"><ol type="1" id="42d53daa-0361-4542-b0a9-9df8ae6bf814" class="numbered-list" start="1"><li>Create the Python object</li></ol><ol type="1" id="cb19cdaf-ac8a-48b9-9370-275f704cce4b" class="numbered-list" start="2"><li>Add it to the session (not Flask session but Flask SQLAlchemy one) - will issue an INSERT statement</li></ol><ol type="1" id="5bbfb263-af7a-4eb5-8c2a-f11bd22f100b" class="numbered-list" start="3"><li>Commit the session</li></ol><pre id="bf6d3d0a-fca3-486f-8da8-1d2ab916a405" class="code code-wrap"><code>&gt;&gt;&gt; from yourapp import User
+&gt;&gt;&gt; me = User(&#x27;admin&#x27;, &#x27;admin@example.com&#x27;)
+&gt;&gt;&gt; db.session.add(me)
+&gt;&gt;&gt; db.session.commit()</code></pre><figure id="770ddd8d-edd3-4426-a7d2-3e9e2a9eaf90" class="image"><a href="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled%204.png"><img style="width:710px" src="Database%20e38fdd66f3014ee180ac63dee5b1428d/Untitled%204.png"/></a><figcaption>Since, id is the primary key it will automatically assigns and image_file has the default value so it is optional.</figcaption></figure><p id="0addf12d-7614-499b-b280-fe361cb7e914" class="">
+</p></div></p><h2 id="49dda09c-51dc-4002-8b9d-d2150cedf7c1" class="">Deleting</h2><pre id="a1696060-a2e3-4478-afcf-31ced7b9cb6f" class="code"><code>&gt;&gt;&gt; db.session.delete(me)
+&gt;&gt;&gt; db.session.commit()</code></pre><h2 id="19639db9-ec6a-4705-8540-64ad1d205c61" class="">Querying Records</h2><p id="608ca5f8-10dc-4bef-9515-ee658d1f3a9a" class="">Flask-SQLAlchemy provides a <code>query </code> attribute on your <a href="https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/#flask_sqlalchemy.Model"><code>Model</code></a> class.  When you access it you will get back a new query object over all records.  You can then use methods like <code>filter()</code> to filter the records before you fire the select with <code>all() </code>[every result] or<code>first()</code> [first result]. If you want to go by primary key you can also use <code>get().</code><div class="indented"><h3 id="2b002698-6ce8-45c0-923a-2313f4eaef29" class="">Retrieve a user by username:</h3><pre id="209add5a-025f-4324-8363-c95f26ed60bb" class="code"><code>&gt;&gt;&gt; peter = User.query.filter_by(username=&#x27;peter&#x27;).first()
+&gt;&gt;&gt; peter.id
+2
+&gt;&gt;&gt; peter.email
+u&#x27;peter@example.org&#x27;</code></pre><p id="c397b359-c751-4e9a-b5d0-a1ada83e51a9" class="">Same as above but for a non existing username gives None:</p><pre id="2cb2b9a9-c24f-43e4-877e-b4a6003a7dfc" class="code"><code>&gt;&gt;&gt; missing = User.query.filter_by(username=&#x27;missing&#x27;).first()
+&gt;&gt;&gt; missing is None
+True</code></pre><p id="5be5d9a2-1d03-46a2-b808-842319d656f0" class="">Selecting a bunch of users by a more complex expression:</p><pre id="96f2e292-a30f-42c3-950c-94b3c3e0f57a" class="code"><code>&gt;&gt;&gt; User.query.filter(User.email.endswith(&#x27;@example.com&#x27;)).all()
+[&lt;User u&#x27;admin&#x27;&gt;, &lt;User u&#x27;guest&#x27;&gt;]</code></pre><p id="9e583ae6-052d-415a-b6bf-63fa0f773652" class="">Ordering users by something:</p><pre id="650360c9-b565-410f-8a0b-a7b093874765" class="code"><code>&gt;&gt;&gt; User.query.order_by(User.username).all()
+[&lt;User u&#x27;admin&#x27;&gt;, &lt;User u&#x27;guest&#x27;&gt;, &lt;User u&#x27;peter&#x27;&gt;]</code></pre><p id="93686567-374f-418b-a679-9cd9e86ec245" class="">Limiting users:</p><pre id="4fa940e3-d61c-4f76-a774-9e2f47c06c23" class="code"><code>&gt;&gt;&gt; User.query.limit(1).all()
+[&lt;User u&#x27;admin&#x27;&gt;]</code></pre><h3 id="6073e7a9-0793-42b7-beda-383343136c39" class="">Getting user by primary key:</h3><pre id="5c189436-0401-4e78-b3ba-9e17aa0b92e8" class="code"><code>&gt;&gt;&gt; User.query.get(1)
+&lt;User u&#x27;admin&#x27;&gt;</code></pre></div></p><h2 id="0826249e-5ff3-4c55-b7ed-e8a63b874233" class="">Drop</h2><p id="ad7fe5f1-8758-4be0-8b0f-29d20efd154c" class="">To drop all the tables and rows in database</p><pre id="bf59e764-eda2-421f-a031-6a7cb8cd9632" class="code"><code>db.drop_all()</code></pre></li></ul><h1 id="b48bdb52-fd94-457b-a443-98878fa8d2de" class="">View Function</h1><p id="7631c0d4-9bf3-4096-80a6-b997bafc3a7f" class="">
+</p></div></article></body></html>

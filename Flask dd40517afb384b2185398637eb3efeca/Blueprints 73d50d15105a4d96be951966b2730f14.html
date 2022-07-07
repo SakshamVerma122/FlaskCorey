@@ -1,0 +1,720 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Blueprints</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="73d50d15-105a-4d96-be95-1966b2730f14" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🗺️</span></div><h1 class="page-title">Blueprints</h1></header><div class="page-body"><h1 id="76fa4ea0-d74e-4dc3-9f9f-c1b0819f0f6e" class="">Why Blueprint?</h1><p id="b1198c99-9826-4972-ac90-345f1d79ecd7" class="">App can be more modular. It breaks our application into blueprints which allow us to split up different functionalities of our application into different sections</p><p id="e9b6776b-e312-4995-a5ef-deaa6e5f2671" class="">It will move our configuration variable to its own file</p><p id="bfdd004e-b308-45be-8a87-225fd113fb17" class="">It will move the creation of application to its own function. By doing this, It will allow us to create different instances of our application which is extremely useful if we want to have one application for testing and one for production. This is called Application Factory </p><p id="e49b27c6-dfc9-47df-833a-177bea38d159" class="">
+</p><h1 id="0446e425-2f3d-44d2-936a-fe978200c458" class="">Blueprint our application</h1><p id="b906a4f8-7d56-4acf-b44f-735010820558" class="">Create new packages in our app named after the functionality that it will contain.</p><p id="fdda4cb1-59ac-4744-871b-ff7e559f58fc" class="">Our app has functionality specific for users, posts and neither which we can group them and called main.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="febe5dbc-07ef-44dc-b57f-23ebf14b174b"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Blueprints do have the ability to have their own static and template files. Still we will continue our app with all template and static files under one directory. Dividing into subfolders can also be done for easy management. </div></figure><div id="8285f538-1a41-4d4d-870b-76471dc338da" class="column-list"><div id="6999ac0d-09e1-451e-a7b7-bb9646e0481a" style="width:50%" class="column"><figure id="1e1fbf21-6a4f-4179-9741-c2e941c859c6" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled.png"><img style="width:260px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled.png"/></a></figure></div><div id="00760e74-6769-4549-8866-2b3f3b526a28" style="width:50%" class="column"><figure id="f44e063a-d584-421f-b4c0-638e7a934451" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%201.png"><img style="width:378px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%201.png"/></a></figure><p id="0919a36a-11ee-444c-9245-87441f0aca08" class="">
+</p></div></div><p id="d729721d-3923-463c-bb0a-efadd094edfe" class="">
+</p><p id="876f104f-b5b3-46ce-98ef-eaee625684de" class="">Create separate <a href="http://routes.py">routes.py</a> file for each packages which will have the only routes do to anything with that functionality. Likewise <a href="http://forms.py">forms.py</a> in every package.</p><figure id="df35ce26-d630-4162-aa6a-526b11b24f3c" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%202.png"><img style="width:247px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%202.png"/></a></figure><div id="2c1bfde4-26fe-4005-bf52-5c551eb9067a" class="column-list"><div id="7cc307e7-5413-4424-a7bc-c90ec994bf4a" style="width:50%" class="column"><p id="3152e9ed-bdee-4568-bde9-09868ec7a068" class="">Some functions in <a href="http://routes.py">routes.py</a> is specific to users but not <mark class="highlight-pink">view functions </mark>(but helps in routes)can be split into separate file called <a href="http://utils.py">utils.py</a> .</p></div><div id="c7d30cd1-9490-40c6-b3af-f95c65809f29" style="width:50%" class="column"><figure id="f7461624-20a0-4e8d-8e35-75a161f8bdeb" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%203.png"><img style="width:210px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%203.png"/></a></figure></div></div><p id="ffa0a2ef-ddbb-4593-89a5-2c8f52c8d104" class="">
+</p><h2 id="cff49e34-7c17-4025-ba1c-0c3912455072" class="">Creating Blueprints</h2><p id="58cfb838-bfe1-4fe1-9d5f-59ef4569ab9e" class="">Initially the below  is our <a href="http://routes.py">routes.py</a> file before blueprint.</p><figure id="d79e40f9-6174-4b61-871e-7e49a3146903" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%204.png"><img style="width:1147px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%204.png"/></a></figure><figure id="2e2e1e59-31c6-4e7c-a386-cfd796c5e415" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%205.png"><img style="width:975px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%205.png"/></a></figure><figure id="03ce19e5-6d32-4800-8676-3f68a4223d72" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%206.png"><img style="width:892px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%206.png"/></a></figure><h3 id="5680d01c-722a-44ae-a184-2b3fc0fd4e18" class="">Original Forms.py</h3><figure id="430fa08f-59bb-40d5-9ef6-6bd5a273de3a" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%207.png"><img style="width:1120px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%207.png"/></a></figure><h3 id="c61fe5cb-511c-44c2-908e-670b82796d88" class="">User Blueprint</h3><p id="64b01ef1-e948-4caa-a21d-372fae2aeacf" class="">In users/routes.py</p><pre id="d25e40ca-071f-495d-a5d6-f9402bc3f058" class="code"><code>from flask import Blueprint
+
+users= Blueprint(&#x27;users&#x27;,__name__)</code></pre><figure id="22e8ed2c-03f5-4fb3-9dc9-6b111f5e19ad" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%208.png"><img style="width:878px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%208.png"/></a></figure><p id="0a4a9726-59df-44f2-91cc-540e5d6093ad" class="">We are not using the global app variable to create our routes anymore. We are going to create routes for user blueprint and later register with our application. This can be done like below</p><figure id="4964d9e8-25de-4999-9a9d-1b414298e829" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%209.png"><img style="width:856px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%209.png"/></a></figure><p id="9be18d0b-8575-437c-a65e-0a9047214329" class="">Fixing the imports, now we import our forms from user blueprint not from our app package</p><pre id="039b6296-b428-467c-b86f-410fabebb6cb" class="code"><code># users/routes.py
+from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask_login import login_user, current_user, logout_user, login_required
+from flaskblog import db, bcrypt
+from flaskblog.models import User, Post
+from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
+                                   RequestResetForm, ResetPasswordForm)
+from flaskblog.users.utils import save_picture, send_reset_email</code></pre><p id="b0ca27ff-afd5-469a-8117-a39f88335f0c" class="">In users/utils.py</p><figure id="0054823a-5479-41aa-9f40-c8eb69e165fc" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2010.png"><img style="width:545px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2010.png"/></a></figure><p id="3896da32-152d-4720-a855-88bf8c0b0443" class="">Fixing the imports,</p><pre id="6b0fd470-cee6-4c90-8b38-78f0e63d3cec" class="code"><code># users/utils.py
+import os
+import secrets
+from PIL import Image
+from flask import url_for
+from flask_mail import Message
+from flaskblog import app, mail</code></pre><p id="9ef70a68-bca4-4746-a7ee-8ebcd9c60e3f" class="">In users/forms.py, we move all our forms  with respect to user and authentication into it.</p><figure id="55324cc8-f9cc-4bcc-81c2-545a87793032" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2011.png"><img style="width:600px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2011.png"/></a></figure><p id="84e03e02-b1be-46af-9fd6-4f2dda276dcf" class="">Fixing the imports,</p><pre id="64b0f356-b19f-4d75-aeda-d4073e29551c" class="code"><code># users/forms.py
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from flask_login import current_user
+from flaskblog.models import User</code></pre><h3 id="fd7ae6c7-257e-4949-a38a-3c2b4f3ff62b" class="">Posts Blueprint</h3><p id="2e06d951-33a6-4519-987b-0b9fcbc55a3a" class="">In posts/routes.py</p><figure id="b121a0d3-a6ac-4647-bc39-41e943f7730b" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2012.png"><img style="width:882px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2012.png"/></a></figure><p id="41b5f6fd-09cc-4f0e-b5c4-5e49c692f4b6" class="">Fixing the imports</p><pre id="41125f4f-86ec-4b5d-a875-99df10c2aa94" class="code"><code># posts/routes.py
+from flask import (render_template, url_for, flash,
+                   redirect, request, abort, Blueprint)
+from flask_login import current_user, login_required
+from flaskblog import db
+from flaskblog.models import Post
+from flaskblog.posts.forms import PostForm</code></pre><p id="16e41977-0cf6-4168-ad2e-5070a7be280b" class="">In posts/forms.py</p><figure id="70e9ce7e-a2db-4221-8ee4-64a104d9383e" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2013.png"><img style="width:465px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2013.png"/></a></figure><pre id="54a28cdb-4a24-4ffe-afd7-11bb596f913a" class="code"><code># posts/forms.py
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired</code></pre><h3 id="a18a150f-eb8c-445f-bbde-fe87b702756f" class="">Main Blueprint</h3><p id="07228dc4-b712-455c-9899-515cb93bff74" class="">In main/routes.py</p><figure id="ae2154dd-46b0-45e6-9b17-5d5d8854b992" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2014.png"><img style="width:522px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2014.png"/></a></figure><p id="a15388e0-77a5-4055-a9eb-ea1c9da8d227" class="">fixing the imports,</p><pre id="59615440-2825-4cd6-a03b-20e7c2d73a13" class="code"><code># main/routes.py
+from flask import render_template, request, Blueprint
+from flaskblog.models import Post</code></pre><h2 id="189f84db-ea33-4980-b99f-66f3316d14ed" class="">Registering Blueprints</h2><figure id="f38176d5-60ea-4018-87bf-bb6fba132424" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2015.png"><img style="width:685px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2015.png"/></a></figure><p id="c9679b39-aa76-4e17-b918-78b509503809" class="">We don’t have route no more in app package, so instead of this import the route from our blueprint and then register it.</p><figure id="0ab23ee0-7b38-4bdf-8ba8-3504892fed1a" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2016.png"><img style="width:585px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2016.png"/></a></figure><h2 id="591e1b77-1fe8-4aaa-9f24-b70630c5b630" class="">Modifying the url_for()</h2><p id="4764f55d-ccb7-4c17-bcba-edd43b4d3ff7" class="">Instead of mere view function name in url_for method, we have to blueprint_name.view_function now to this method.</p><h2 id="34877935-949e-4bf3-b0cc-6497d88b4c09" class="">Config File</h2><p id="60611306-c5b9-480a-afd1-8627a3f43ce8" class="">Benefits:<div class="indented"><ul id="2ab0099b-e164-43b2-a3d8-da96ba31738b" class="bulleted-list"><li style="list-style-type:disc">A lot - One of which is it makes our app easier to test.</li></ul><ul id="15569b03-ba1c-4bb4-a13d-9859727e426d" class="bulleted-list"><li style="list-style-type:disc">Able to run our app with different configuration file.</li></ul></div></p><p id="e98addcb-8f6f-42a9-b4dd-60564a8d3ccb" class="">Making Config as a class pay a way for inheritance and all we have in a single object.</p><p id="fab85a02-55dc-464a-90bd-d00b730c8ffa" class=""> </p><figure id="7dad77fd-7402-46db-a15f-5bb156952379" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2017.png"><img style="width:1022px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2017.png"/></a></figure><p id="4a57058d-cee7-4930-94e3-db7b0a49ed47" class="">Secret information can be stored as environment variable for privacy. DB like postgres ask for username and password in the URI so it is better to store in environment variable and retrieve it.</p><p id="d67df807-6c4d-4a99-b9a6-5101f0875c57" class="">To Tell our app to use this configuration,</p><pre id="a90b0001-e824-4797-996b-25cf435bcc3c" class="code"><code>from flaskblog.config import Config
+
+app = Flask(__name__)
+app.config.from_object(Config)</code></pre><p id="64c1ec2a-cd9d-4f2d-9b15-52e370f5ac04" class="">
+</p><h2 id="040dfcdd-abcd-46f7-a6b6-03c7fe7c8417" class="">Function to create our app (<strong>Application Factories Pattern</strong>)</h2><p id="1705b667-d078-4f7b-914d-1534d540c8b7" class="">Except the extensions, we move everything inside our function</p><figure id="edfe6cda-d313-4af0-adf7-cf40935456c2" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2018.png"><img style="width:536px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2018.png"/></a></figure><p id="0ab6c25a-2ef7-4c56-a416-22e6a27222ea" class="">These are extensions we are using. It will stay outside of our function.</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="73e72a36-63bb-463a-90cf-c07258468b5d"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Extensions are extra packages that add functionality to a Flask application. For example, an extension might add support for sending email or connecting to a database. Some extensions add entire new frameworks to help build certain types of applications, like a REST API.</div></figure><h3 id="03da40f1-9b39-46f0-95ff-e677f43ace37" class="">Reason for extensions to stay outside of the function</h3><p id="954a1611-1770-409e-ad80-0078539f57ef" class="">         An extension has to ensure that it works with multiple Flask application instances at once.  This is a requirement because many people will use patterns like the <a href="https://flask.palletsprojects.com/en/1.1.x/patterns/appfactories/#app-factories">Application Factories</a> pattern to create their application as needed to aid <mark class="highlight-pink">unit tests</mark> and to support <mark class="highlight-pink">multiple configurations.</mark></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="fb85a71e-ad5c-4296-96aa-2fecbd364145"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><a href="https://flask.palletsprojects.com/en/1.1.x/patterns/appfactories/#app-factories">https://flask.palletsprojects.com/en/1.1.x/patterns/appfactories/#app-factories</a></div></figure><h3 id="c83d1081-d076-41cd-a844-ce732f2d75b4" class=""><strong>Factories &amp; Extensions</strong></h3><p id="db03b6bf-8cc6-45b2-8b16-7de89580ed0b" class="">It’s preferable to create your extensions and app factories so that the <mark class="highlight-pink">extension</mark> object does<mark class="highlight-pink"> not initially get bound to the application.</mark></p><p id="55128b39-ae83-4283-bc5c-70487249dcef" class="">Using <a href="https://flask-sqlalchemy.palletsprojects.com/">Flask-SQLAlchemy</a>, as an example, you should not do something along those lines:</p><pre id="3d6e9ff4-0a39-4107-874e-f1c78e135988" class="code"><code>def create_app(config_filename):
+    app = Flask(__name__)
+    app.config.from_pyfile(config_filename)
+
+    db = SQLAlchemy(app)</code></pre><p id="4f1b573c-010b-4a49-bdc8-fddb8b564dea" class="">But, rather, in model.py (or equivalent):</p><pre id="34fc270e-f64a-4258-b6c3-c4bfc8bfc5bc" class="code"><code>db = SQLAlchemy()</code></pre><p id="fc2b1194-af51-4330-b3f7-3d8cdc3e36e9" class="">and in your application.py (or equivalent):</p><pre id="616c5be2-e699-48aa-bfc7-bbe093b83837" class="code"><code>def create_app(config_filename):
+    app = Flask(__name__)
+    app.config.from_pyfile(config_filename)
+
+    from yourapplication.model import db
+    db.init_app(app)</code></pre><p id="9df3856f-0a6c-4216-bd53-240bba718d47" class="">Using this design pattern, no application-specific state is stored on the extension object, so one extension object can be used for multiple apps.
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="daf9cd2d-00b4-4b89-82a5-a52485bcd3fd"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">For more information about the design of extensions refer to <a href="https://flask.palletsprojects.com/en/1.1.x/extensiondev/">Flask Extension Development</a>.</div></figure><figure id="eaccbdf7-0804-4977-89bd-3c885adabaf3" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2019.png"><img style="width:671px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2019.png"/></a></figure><p id="89149ebe-b613-4d6d-9f4a-4d3528ad9583" class="">We don’t have app variable from flaskblog (our app package) anymore because we moved it into a function, we used in certain places in our app. This need of app variable in our whole application can be solved by <mark class="highlight-pink">current_app </mark>variable, can be imported from flask.</p><figure id="6b296e4c-d6a0-468a-8f31-caadd24c3b3f" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2020.png"><img style="width:985px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2020.png"/></a></figure><figure id="81d1b079-bdd1-45f5-94dd-74d706f0aa53" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2021.png"><img style="width:1071px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2021.png"/></a></figure><h3 id="a06c4498-1bdf-440b-9d9b-7ac17c0742df" class="">Create app instance </h3><figure id="5bfc488d-1a6d-4d18-b0a2-64e42434c66f" class="image"><a href="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2022.png"><img style="width:520px" src="Blueprints%2073d50d15105a4d96be951966b2730f14/Untitled%2022.png"/></a></figure><p id="b6109413-3f8b-42c1-8390-550437ce6ee7" class="">
+</p></div></article></body></html>
